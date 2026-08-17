@@ -10,12 +10,12 @@
   <view class="panel">
     <view class="field">
       <text class="label">父亲姓名</text>
-      <input class="input" value="{{father}}" bindinput="onFatherInput" placeholder="如：李广超" placeholder-class="placeholder" />
+      <input class="input" value="{{father}}" bindinput="onFatherInput" placeholder="请输入父亲姓名" placeholder-class="placeholder" />
     </view>
 
     <view class="field">
       <text class="label">母亲姓名</text>
-      <input class="input" value="{{mother}}" bindinput="onMotherInput" placeholder="如：王晓倩" placeholder-class="placeholder" />
+      <input class="input" value="{{mother}}" bindinput="onMotherInput" placeholder="请输入母亲姓名" placeholder-class="placeholder" />
     </view>
 
     <view class="field">
