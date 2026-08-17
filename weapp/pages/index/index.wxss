@@ -216,12 +216,13 @@
 
 .card-top {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: stretch;
   gap: 16rpx;
 }
 
 .name-main {
+  width: 100%;
   min-width: 0;
 }
 
@@ -230,6 +231,8 @@
   font-size: 44rpx;
   font-weight: 800;
   letter-spacing: 4rpx;
+  line-height: 1.3;
+  word-break: break-all;
 }
 
 .pinyin {
@@ -243,18 +246,21 @@
 .card-actions {
   display: flex;
   flex-shrink: 0;
+  justify-content: flex-end;
   gap: 8rpx;
 }
 
 .mini-button {
+  width: 96rpx;
   height: 56rpx;
   line-height: 56rpx;
   margin: 0;
-  padding: 0 18rpx;
+  padding: 0;
   border-radius: 12rpx;
   background: #f1eadf;
   color: #182430;
   font-size: 24rpx;
+  text-align: center;
 }
 
 .mini-button::after {
