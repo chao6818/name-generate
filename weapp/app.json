@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "灵名AI",
+    "navigationBarBackgroundColor": "#fbf8f2",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#fbf8f2"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

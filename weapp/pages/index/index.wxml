@@ -1,0 +1,124 @@
+<view class="page">
+  <view class="header">
+    <image class="brand-mark" src="/assets/lingming-ai-avatar-v2.png" mode="aspectFill"></image>
+    <view class="brand-text">
+      <text class="title">灵名AI</text>
+      <text class="subtitle">父母姓名参考起名</text>
+    </view>
+  </view>
+
+  <view class="panel">
+    <view class="field">
+      <text class="label">父亲姓名</text>
+      <input class="input" value="{{father}}" bindinput="onFatherInput" placeholder="如：李广超" placeholder-class="placeholder" />
+    </view>
+
+    <view class="field">
+      <text class="label">母亲姓名</text>
+      <input class="input" value="{{mother}}" bindinput="onMotherInput" placeholder="如：王晓倩" placeholder-class="placeholder" />
+    </view>
+
+    <view class="field">
+      <text class="label">宝宝姓氏</text>
+      <view class="segmented">
+        <view
+          wx:for="{{surnameOptions}}"
+          wx:key="value"
+          class="segment {{surnameSource === item.value ? 'active' : ''}}"
+          data-value="{{item.value}}"
+          bindtap="onSurnameTap"
+        >{{item.label}}</view>
+      </view>
+    </view>
+
+    <view class="field">
+      <text class="label">出生年月</text>
+      <view class="select-row">
+        <picker mode="selector" range="{{birthYears}}" value="{{birthYearIndex}}" bindchange="onBirthYearChange">
+          <view class="picker">{{birthYears[birthYearIndex]}}</view>
+        </picker>
+        <picker mode="selector" range="{{birthMonths}}" value="{{birthMonthIndex}}" bindchange="onBirthMonthChange">
+          <view class="picker">{{birthMonths[birthMonthIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="field">
+      <text class="label">性别倾向</text>
+      <view class="segmented">
+        <view
+          wx:for="{{genderOptions}}"
+          wx:key="value"
+          class="segment {{gender === item.value ? 'active' : ''}}"
+          data-value="{{item.value}}"
+          bindtap="onGenderTap"
+        >{{item.label}}</view>
+      </view>
+    </view>
+
+    <view class="field">
+      <text class="label">名字风格</text>
+      <view class="chip-grid">
+        <view
+          wx:for="{{styleOptions}}"
+          wx:key="id"
+          class="chip {{item.active ? 'active' : ''}}"
+          data-id="{{item.id}}"
+          bindtap="onStyleTap"
+        >{{item.label}}</view>
+      </view>
+    </view>
+
+    <view class="field">
+      <text class="label">名字长度</text>
+      <view class="segmented">
+        <view
+          wx:for="{{lengthOptions}}"
+          wx:key="value"
+          class="segment {{length === item.value ? 'active' : ''}}"
+          data-value="{{item.value}}"
+          bindtap="onLengthTap"
+        >{{item.label}}</view>
+      </view>
+    </view>
+
+    <view class="field">
+      <view class="range-head">
+        <text class="label">生成数量</text>
+        <text class="count-value">{{count}}</text>
+      </view>
+      <slider min="5" max="30" step="1" value="{{count}}" activeColor="#147d7a" backgroundColor="#e5ddd1" block-size="22" bindchange="onCountChange" />
+    </view>
+
+    <button class="generate" bindtap="onGenerate">生成名字</button>
+  </view>
+
+  <view class="results">
+    <view class="result-head">
+      <text class="result-title">起名结果</text>
+      <text class="result-subtitle">{{subtitle}}</text>
+    </view>
+
+    <view class="ref-strip" wx:if="{{referencePrompt}}">
+      <text class="ref-text">{{referencePrompt}}</text>
+    </view>
+
+    <view class="name-card" wx:for="{{names}}" wx:key="text">
+      <view class="card-top">
+        <view class="name-main">
+          <text class="name-text">{{item.text}}</text>
+          <text class="pinyin">{{item.pinyin}}</text>
+        </view>
+        <view class="card-actions">
+          <button class="mini-button" data-index="{{index}}" catchtap="onCopy">复制</button>
+          <button class="mini-button" data-index="{{index}}" catchtap="onRefresh">换</button>
+        </view>
+      </view>
+      <text class="ref-line" wx:if="{{item.refLine}}">{{item.refLine}}</text>
+      <text class="meaning">{{item.meaning}}</text>
+      <view class="tags">
+        <text wx:for="{{item.tagLabels}}" wx:for-item="tag" wx:key="*this" class="tag">{{tag}}</text>
+      </view>
+    </view>
+  </view>
+</view>
