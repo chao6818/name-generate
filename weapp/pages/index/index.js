@@ -34,6 +34,12 @@ Page({
   },
 
   onLoad() {
+    if (wx.showShareMenu) {
+      wx.showShareMenu({
+        withShareTicket: true,
+        menus: ["shareAppMessage", "shareTimeline"]
+      });
+    }
     const years = [];
     for (let year = 2015; year <= 2030; year++) {
       years.push(`${year}年`);
@@ -112,6 +118,21 @@ Page({
 
   onGenerate() {
     this.generate();
+  },
+
+  onShareAppMessage() {
+    return {
+      title: "灵名AI：输入父母姓名，生成有寓意的名字",
+      path: "/pages/index/index",
+      imageUrl: "/assets/lingming-ai-avatar-v2.png"
+    };
+  },
+
+  onShareTimeline() {
+    return {
+      title: "灵名AI：输入父母姓名，生成有寓意的名字",
+      imageUrl: "/assets/lingming-ai-avatar-v2.png"
+    };
   },
 
   generate() {

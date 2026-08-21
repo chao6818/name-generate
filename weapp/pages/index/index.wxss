@@ -171,6 +171,23 @@
   border: none;
 }
 
+.share-button {
+  height: 92rpx;
+  line-height: 92rpx;
+  margin-top: 20rpx;
+  border: 2rpx solid #147d7a;
+  border-radius: 16rpx;
+  background: #ffffff;
+  color: #147d7a;
+  font-size: 30rpx;
+  font-weight: 700;
+  letter-spacing: 4rpx;
+}
+
+.share-button::after {
+  border: none;
+}
+
 .results {
   margin-top: 28rpx;
 }

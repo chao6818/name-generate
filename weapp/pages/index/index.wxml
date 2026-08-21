@@ -91,6 +91,7 @@
     </view>
 
     <button class="generate" bindtap="onGenerate">生成名字</button>
+    <button class="share-button" open-type="share">转发给好友</button>
   </view>
 
   <view class="results">
