@@ -1,10 +1,13 @@
 <view class="page">
   <view class="header">
-    <image class="brand-mark" src="/assets/lingming-ai-avatar-v2.png" mode="aspectFill"></image>
-    <view class="brand-text">
-      <text class="title">灵名AI</text>
-      <text class="subtitle">父母姓名参考起名</text>
+    <view class="brand">
+      <image class="brand-mark" src="/assets/lingming-ai-avatar-v2.png" mode="aspectFill"></image>
+      <view class="brand-text">
+        <text class="title">灵名AI</text>
+        <text class="subtitle">父母姓名参考起名</text>
+      </view>
     </view>
+    <button class="share-top" open-type="share">转发给好友</button>
   </view>
 
   <view class="panel">
@@ -96,7 +99,6 @@
     </view>
 
     <button class="generate" bindtap="onGenerate">生成名字</button>
-    <button class="share-button" open-type="share">转发给好友</button>
   </view>
 
   <view class="results">

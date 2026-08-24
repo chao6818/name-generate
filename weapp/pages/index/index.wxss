@@ -11,10 +11,19 @@
   padding: 16rpx 8rpx 28rpx;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 12rpx;
+}
+
+.brand {
+  min-width: 0;
+  display: flex;
+  align-items: center;
   gap: 16rpx;
 }
 
 .brand-mark {
+  flex-shrink: 0;
   width: 76rpx;
   height: 76rpx;
   border-radius: 18rpx;
@@ -22,6 +31,7 @@
 }
 
 .brand-text {
+  min-width: 0;
   display: flex;
   flex-direction: column;
 }
@@ -37,6 +47,25 @@
   color: #5f6b76;
   font-size: 24rpx;
   letter-spacing: 2rpx;
+}
+
+.share-top {
+  flex-shrink: 0;
+  height: 64rpx;
+  line-height: 64rpx;
+  margin: 0;
+  padding: 0 24rpx;
+  border: 2rpx solid #147d7a;
+  border-radius: 32rpx;
+  background: #ffffff;
+  color: #147d7a;
+  font-size: 24rpx;
+  font-weight: 700;
+  box-shadow: 0 4rpx 12rpx rgba(20, 125, 122, 0.14);
+}
+
+.share-top::after {
+  border: none;
 }
 
 .panel {
@@ -168,23 +197,6 @@
 }
 
 .generate::after {
-  border: none;
-}
-
-.share-button {
-  height: 92rpx;
-  line-height: 92rpx;
-  margin-top: 20rpx;
-  border: 2rpx solid #147d7a;
-  border-radius: 16rpx;
-  background: #ffffff;
-  color: #147d7a;
-  font-size: 30rpx;
-  font-weight: 700;
-  letter-spacing: 4rpx;
-}
-
-.share-button::after {
   border: none;
 }
 
