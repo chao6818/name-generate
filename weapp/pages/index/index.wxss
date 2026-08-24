@@ -54,7 +54,7 @@
   position: absolute;
   top: 6rpx;
   right: 4rpx;
-  width: 60rpx;
+  width: 52rpx;
   height: 44rpx;
   line-height: 44rpx;
   margin: 0;
