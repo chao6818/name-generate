@@ -198,7 +198,18 @@ Page({
       count: data.count
     };
     const singleConfig = Object.assign({}, config, { count: 1 });
-    const single = generateNames(singleConfig)[0];
+    const others = data.names.filter((_, itemIndex) => itemIndex !== index);
+    const excludeChars = [];
+    others.forEach((item) => {
+      (item.given || []).forEach((char) => excludeChars.push(char));
+    });
+    singleConfig.excludeChars = excludeChars;
+    let single = generateNames(singleConfig)[0];
+    let attempts = 0;
+    while (data.names.some((item) => item.text === single.text) && attempts < 80) {
+      single = generateNames(singleConfig)[0];
+      attempts++;
+    }
     const names = data.names.slice();
     names[index] = single;
     this.setData({ names });

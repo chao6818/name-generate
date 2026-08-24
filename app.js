@@ -507,6 +507,106 @@ const POPULAR_NAMES = [
   { n: "思涵", py: "sī hán", g: "f", t: ["elegant", "classic"] },
   { n: "锦萱", py: "jǐn xuān", g: "f", t: ["bold", "warm"] },
   { n: "芊芊", py: "qiān qiān", g: "f", t: ["fresh", "cute"] },
+  { n: "景琛", py: "jǐng chēn", g: "m", t: ["elegant", "classic"] },
+  { n: "书衡", py: "shū héng", g: "m", t: ["classic", "elegant"] },
+  { n: "承峻", py: "chéng jùn", g: "m", t: ["bold", "classic"] },
+  { n: "泽谦", py: "zé qiān", g: "m", t: ["warm", "elegant"] },
+  { n: "宇琛", py: "yǔ chēn", g: "m", t: ["bold", "elegant"] },
+  { n: "铭川", py: "míng chuān", g: "m", t: ["classic", "bold"] },
+  { n: "睿川", py: "ruì chuān", g: "m", t: ["modern", "bold"] },
+  { n: "泽瑞", py: "zé ruì", g: "m", t: ["warm", "classic"] },
+  { n: "嘉铭", py: "jiā míng", g: "m", t: ["bold", "classic"] },
+  { n: "子谦", py: "zǐ qiān", g: "m", t: ["elegant", "classic"] },
+  { n: "文谦", py: "wén qiān", g: "m", t: ["classic", "elegant"] },
+  { n: "明谦", py: "míng qiān", g: "m", t: ["classic", "elegant"] },
+  { n: "志承", py: "zhì chéng", g: "m", t: ["bold", "classic"] },
+  { n: "承远", py: "chéng yuǎn", g: "m", t: ["bold", "classic"] },
+  { n: "启航", py: "qǐ háng", g: "m", t: ["bold", "modern"] },
+  { n: "启睿", py: "qǐ ruì", g: "m", t: ["modern", "elegant"] },
+  { n: "博睿", py: "bó ruì", g: "m", t: ["bold", "modern"] },
+  { n: "博远", py: "bó yuǎn", g: "m", t: ["bold", "classic"] },
+  { n: "弘远", py: "hóng yuǎn", g: "m", t: ["bold", "classic"] },
+  { n: "源远", py: "yuán yuǎn", g: "m", t: ["classic", "bold"] },
+  { n: "源川", py: "yuán chuān", g: "m", t: ["classic", "fresh"] },
+  { n: "泽川", py: "zé chuān", g: "m", t: ["warm", "bold"] },
+  { n: "泓泽", py: "hóng zé", g: "m", t: ["fresh", "warm"] },
+  { n: "泓远", py: "hóng yuǎn", g: "m", t: ["fresh", "classic"] },
+  { n: "睿博", py: "ruì bó", g: "m", t: ["modern", "bold"] },
+  { n: "博宇", py: "bó yǔ", g: "m", t: ["bold", "modern"] },
+  { n: "宇博", py: "yǔ bó", g: "m", t: ["bold", "modern"] },
+  { n: "明博", py: "míng bó", g: "m", t: ["classic", "bold"] },
+  { n: "文博", py: "wén bó", g: "m", t: ["classic", "elegant"] },
+  { n: "俊博", py: "jùn bó", g: "m", t: ["modern", "bold"] },
+  { n: "俊宇", py: "jùn yǔ", g: "m", t: ["modern", "bold"] },
+  { n: "俊贤", py: "jùn xián", g: "m", t: ["modern", "classic"] },
+  { n: "贤宇", py: "xián yǔ", g: "m", t: ["classic", "bold"] },
+  { n: "贤承", py: "xián chéng", g: "m", t: ["classic", "bold"] },
+  { n: "嘉贤", py: "jiā xián", g: "m", t: ["bold", "classic"] },
+  { n: "轩铭", py: "xuān míng", g: "m", t: ["bold", "classic"] },
+  { n: "铭轩", py: "míng xuān", g: "m", t: ["classic", "bold"] },
+  { n: "逸轩", py: "yì xuān", g: "m", t: ["elegant", "bold"] },
+  { n: "轩宇", py: "xuān yǔ", g: "m", t: ["bold", "modern"] },
+  { n: "宇帆", py: "yǔ fān", g: "m", t: ["bold", "fresh"] },
+  { n: "帆远", py: "fān yuǎn", g: "m", t: ["fresh", "bold"] },
+  { n: "云川", py: "yún chuān", g: "m", t: ["fresh", "bold"] },
+  { n: "山川", py: "shān chuān", g: "m", t: ["bold", "classic"] },
+  { n: "山远", py: "shān yuǎn", g: "m", t: ["bold", "classic"] },
+  { n: "风远", py: "fēng yuǎn", g: "m", t: ["fresh", "classic"] },
+  { n: "星川", py: "xīng chuān", g: "m", t: ["modern", "bold"] },
+  { n: "星远", py: "xīng yuǎn", g: "m", t: ["modern", "bold"] },
+  { n: "辰远", py: "chén yuǎn", g: "m", t: ["bold", "classic"] },
+  { n: "辰川", py: "chén chuān", g: "m", t: ["bold", "modern"] },
+  { n: "嘉安", py: "jiā ān", g: "m", t: ["bold", "warm"] },
+  { n: "诗妍", py: "shī yán", g: "f", t: ["classic", "elegant"] },
+  { n: "诗悦", py: "shī yuè", g: "f", t: ["classic", "fresh"] },
+  { n: "诗宁", py: "shī níng", g: "f", t: ["classic", "warm"] },
+  { n: "书悦", py: "shū yuè", g: "f", t: ["classic", "fresh"] },
+  { n: "书宁", py: "shū níng", g: "f", t: ["classic", "warm"] },
+  { n: "书晴", py: "shū qíng", g: "f", t: ["classic", "fresh"] },
+  { n: "瑶宁", py: "yáo níng", g: "f", t: ["elegant", "warm"] },
+  { n: "瑶清", py: "yáo qīng", g: "f", t: ["elegant", "fresh"] },
+  { n: "玥宁", py: "yuè níng", g: "f", t: ["elegant", "warm"] },
+  { n: "玥清", py: "yuè qīng", g: "f", t: ["elegant", "fresh"] },
+  { n: "欣瑶", py: "xīn yáo", g: "f", t: ["fresh", "elegant"] },
+  { n: "欣玥", py: "xīn yuè", g: "f", t: ["fresh", "elegant"] },
+  { n: "欣语", py: "xīn yǔ", g: "f", t: ["fresh", "cute"] },
+  { n: "语桐", py: "yǔ tóng", g: "f", t: ["fresh", "classic"] },
+  { n: "雨萱", py: "yǔ xuān", g: "f", t: ["fresh", "warm"] },
+  { n: "雨茉", py: "yǔ mò", g: "f", t: ["fresh", "cute"] },
+  { n: "雨禾", py: "yǔ hé", g: "f", t: ["fresh", "warm"] },
+  { n: "雨宁", py: "yǔ níng", g: "f", t: ["fresh", "warm"] },
+  { n: "雨清", py: "yǔ qīng", g: "f", t: ["fresh", "elegant"] },
+  { n: "雨诗", py: "yǔ shī", g: "f", t: ["fresh", "classic"] },
+  { n: "诗雨", py: "shī yǔ", g: "f", t: ["classic", "fresh"] },
+  { n: "诗清", py: "shī qīng", g: "f", t: ["classic", "elegant"] },
+  { n: "诗月", py: "shī yuè", g: "f", t: ["classic", "elegant"] },
+  { n: "清月", py: "qīng yuè", g: "f", t: ["fresh", "elegant"] },
+  { n: "清瑶", py: "qīng yáo", g: "f", t: ["fresh", "elegant"] },
+  { n: "清宁", py: "qīng níng", g: "f", t: ["fresh", "warm"] },
+  { n: "清芷", py: "qīng zhǐ", g: "f", t: ["fresh", "classic"] },
+  { n: "芷清", py: "zhǐ qīng", g: "f", t: ["classic", "fresh"] },
+  { n: "芷月", py: "zhǐ yuè", g: "f", t: ["classic", "elegant"] },
+  { n: "若清", py: "ruò qīng", g: "f", t: ["elegant", "fresh"] },
+  { n: "若宁", py: "ruò níng", g: "f", t: ["elegant", "warm"] },
+  { n: "若月", py: "ruò yuè", g: "f", t: ["elegant", "classic"] },
+  { n: "若萱", py: "ruò xuān", g: "f", t: ["elegant", "warm"] },
+  { n: "汐宁", py: "xī níng", g: "f", t: ["fresh", "warm"] },
+  { n: "汐月", py: "xī yuè", g: "f", t: ["fresh", "elegant"] },
+  { n: "汐禾", py: "xī hé", g: "f", t: ["fresh", "warm"] },
+  { n: "禾宁", py: "hé níng", g: "f", t: ["warm", "elegant"] },
+  { n: "禾月", py: "hé yuè", g: "f", t: ["warm", "elegant"] },
+  { n: "萱宁", py: "xuān níng", g: "f", t: ["warm", "elegant"] },
+  { n: "萱月", py: "xuān yuè", g: "f", t: ["warm", "elegant"] },
+  { n: "念汐", py: "niàn xī", g: "f", t: ["warm", "fresh"] },
+  { n: "念晴", py: "niàn qíng", g: "f", t: ["warm", "fresh"] },
+  { n: "念月", py: "niàn yuè", g: "f", t: ["warm", "elegant"] },
+  { n: "以汐", py: "yǐ xī", g: "f", t: ["modern", "fresh"] },
+  { n: "以晴", py: "yǐ qíng", g: "f", t: ["modern", "fresh"] },
+  { n: "以月", py: "yǐ yuè", g: "f", t: ["modern", "elegant"] },
+  { n: "云汐", py: "yún xī", g: "f", t: ["fresh", "elegant"] },
+  { n: "云晴", py: "yún qíng", g: "f", t: ["fresh", "warm"] },
+  { n: "云月", py: "yún yuè", g: "f", t: ["fresh", "elegant"] },
+  { n: "乔宁", py: "qiáo níng", g: "f", t: ["fresh", "warm"] },
 ];
 
 const SURNAME_PINYIN = {
@@ -1143,6 +1243,11 @@ function getAllCharLookup() {
   all.forEach((item) => {
     if (!map.has(item.c)) map.set(item.c, item);
   });
+  Object.entries(GENERATION_CHARS).forEach(([char, info]) => {
+    if (!map.has(char)) {
+      map.set(char, { c: char, py: info.py, meaning: info.meaning, tags: ["classic", "elegant"] });
+    }
+  });
   return map;
 }
 
@@ -1257,8 +1362,8 @@ function pickGivenChars(rng, usedChars = new Set()) {
     const freshPool = pool.filter((item) => !usedChars.has(item.c));
     const rankedSource = freshRanked.length ? freshRanked : ranked;
     const poolSource = freshPool.length ? freshPool : pool;
-    const topCount = Math.min(30, rankedSource.length);
-    return rng() < 0.55 ? rankedSource[Math.floor(rng() * topCount)].item : pick(poolSource, rng);
+    const topCount = Math.min(45, rankedSource.length);
+    return rng() < 0.45 ? rankedSource[Math.floor(rng() * topCount)].item : pick(poolSource, rng);
   };
 
   while (chosen.length < length && attempts < length * 30) {
@@ -1294,6 +1399,7 @@ function makeName(rng, usedChars = new Set()) {
   const classic = pick(CLASSIC_LINES, rng);
   return {
     text: (surname ? surname.s : "") + given.map((char) => char.c).join(""),
+    given: given.map((char) => char.c),
     pinyin: [surname ? surname.py : "", ...given.map((char) => char.py)].filter(Boolean).join(" "),
     meaning: given.map((char) => char.meaning).join(" · "),
     tags: [...new Set(given.flatMap((char) => char.tags))].slice(0, 2),
@@ -1515,10 +1621,13 @@ function bindEvents() {
     } else if (button.dataset.action === "refresh") {
       const seed = Date.now() ^ Math.floor(Math.random() * 0xffffffff);
       const rng = mulberry32(seed);
-      let candidate = makeName(rng);
+      const others = state.names.filter((_, itemIndex) => itemIndex !== index);
+      const usedChars = new Set(others.flatMap((item) => item.given || []));
+      const makeCandidate = () => makeName(rng, new Set(usedChars));
+      let candidate = makeCandidate();
       let attempts = 0;
-      while (state.names.some((item) => item.text === candidate.text) && attempts < 60) {
-        candidate = makeName(rng);
+      while (state.names.some((item) => item.text === candidate.text) && attempts < 80) {
+        candidate = makeCandidate();
         attempts++;
       }
       state.names[index] = candidate;
