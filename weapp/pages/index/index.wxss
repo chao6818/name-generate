@@ -8,10 +8,10 @@
 }
 
 .header {
+  position: relative;
   padding: 16rpx 8rpx 28rpx;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 12rpx;
 }
 
@@ -20,6 +20,7 @@
   display: flex;
   align-items: center;
   gap: 16rpx;
+  padding-right: 140rpx;
 }
 
 .brand-mark {
@@ -50,16 +51,18 @@
 }
 
 .share-top {
-  flex-shrink: 0;
-  height: 44rpx;
-  line-height: 44rpx;
+  position: absolute;
+  top: 6rpx;
+  right: 4rpx;
+  height: 46rpx;
+  line-height: 46rpx;
   margin: 0;
-  padding: 0 14rpx;
+  padding: 0 12rpx;
   border: 2rpx solid #147d7a;
-  border-radius: 22rpx;
+  border-radius: 23rpx;
   background: #ffffff;
   color: #147d7a;
-  font-size: 20rpx;
+  font-size: 24rpx;
   font-weight: 700;
   box-shadow: 0 2rpx 8rpx rgba(20, 125, 122, 0.12);
 }
