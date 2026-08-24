@@ -1,8 +1,10 @@
 <view class="page">
   <view class="header">
     <image class="brand-mark" src="/assets/lingming-ai-avatar-v3.png" mode="aspectFill"></image>
-    <text class="title">灵名AI</text>
-    <text class="subtitle">父母姓名参考起名</text>
+    <view class="brand-text">
+      <text class="title">灵名AI</text>
+      <text class="subtitle">父母姓名参考起名</text>
+    </view>
   </view>
 
   <view class="card">
