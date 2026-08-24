@@ -1,19 +1,18 @@
-const { generateNames, getGroupedReferencePrompt, STYLE_OPTIONS } = require("../../utils/generator");
+const { generateNames, getReferencePrompt, STYLE_OPTIONS } = require("../../utils/generator");
 
 Page({
   data: {
     father: "",
     mother: "",
+    generationChar: "",
     surnameSource: "none",
     surnameOptions: [
       { label: "父姓", value: "father" },
       { label: "母姓", value: "mother" },
       { label: "不显示", value: "none" }
     ],
-    birthYears: [],
-    birthYearIndex: 11,
-    birthMonths: [],
-    birthMonthIndex: 7,
+    birthDate: "2026-08-24",
+    birthTime: "08:00",
     gender: "neutral",
     genderOptions: [
       { label: "不限", value: "neutral" },
@@ -40,22 +39,12 @@ Page({
         menus: ["shareAppMessage", "shareTimeline"]
       });
     }
-    const years = [];
-    for (let year = 2015; year <= 2030; year++) {
-      years.push(`${year}年`);
-    }
-    const months = [];
-    for (let month = 1; month <= 12; month++) {
-      months.push(`${month}月`);
-    }
     const styleOptions = STYLE_OPTIONS.map((style) => ({
       id: style.id,
       label: style.label,
       active: true
     }));
     this.setData({
-      birthYears: years,
-      birthMonths: months,
       styleOptions
     });
     this.generate();
@@ -71,19 +60,24 @@ Page({
     this.generate();
   },
 
+  onGenerationCharInput(event) {
+    this.setData({ generationChar: event.detail.value.slice(0, 1) });
+    this.generate();
+  },
+
   onSurnameTap(event) {
     const value = event.currentTarget.dataset.value;
     this.setData({ surnameSource: value });
     this.generate();
   },
 
-  onBirthYearChange(event) {
-    this.setData({ birthYearIndex: Number(event.detail.value) });
+  onBirthDateChange(event) {
+    this.setData({ birthDate: event.detail.value });
     this.generate();
   },
 
-  onBirthMonthChange(event) {
-    this.setData({ birthMonthIndex: Number(event.detail.value) });
+  onBirthTimeChange(event) {
+    this.setData({ birthTime: event.detail.value });
     this.generate();
   },
 
@@ -137,33 +131,35 @@ Page({
 
   generate() {
     const data = this.data;
+    const dateParts = data.birthDate.split("-");
+    const timeParts = data.birthTime.split(":");
     const config = {
       father: data.father,
       mother: data.mother,
+      generationChar: data.generationChar,
       surnameSource: data.surnameSource,
-      birthYear: 2015 + Number(data.birthYearIndex),
-      birthMonth: Number(data.birthMonthIndex) + 1,
+      birthDate: data.birthDate,
+      birthTime: data.birthTime,
+      birthYear: Number(dateParts[0]),
+      birthMonth: Number(dateParts[1]),
+      birthDay: Number(dateParts[2]),
+      birthHour: Number(timeParts[0]),
+      birthMinute: Number(timeParts[1]),
       gender: data.gender,
       styles: data.styleOptions.filter((style) => style.active).map((style) => style.id),
       length: data.length,
       count: data.count
     };
     const names = generateNames(config);
-    const referencePrompt = getGroupedReferencePrompt(config);
-    const zodiac = this.getZodiacLabel(config.birthYear);
+    const referencePrompt = getReferencePrompt(config);
     const styleLabels = config.styles.length
       ? STYLE_OPTIONS.filter((style) => config.styles.includes(style.id)).map((style) => style.label).join("、")
       : "不限风格";
     this.setData({
       names,
       referencePrompt,
-      subtitle: `已生成 ${names.length} 个名字 · ${config.birthYear}年${config.birthMonth}月 · ${zodiac} · ${styleLabels}`
+      subtitle: `已生成 ${names.length} 个名字 · ${config.birthDate} ${config.birthTime} · ${styleLabels}`
     });
-  },
-
-  getZodiacLabel(year) {
-    const list = ["鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"];
-    return list[(((Number(year) - 4) % 12) + 12) % 12] + "年";
   },
 
   onCopy(event) {
@@ -181,12 +177,20 @@ Page({
   onRefresh(event) {
     const index = Number(event.currentTarget.dataset.index);
     const data = this.data;
+    const dateParts = data.birthDate.split("-");
+    const timeParts = data.birthTime.split(":");
     const config = {
       father: data.father,
       mother: data.mother,
+      generationChar: data.generationChar,
       surnameSource: data.surnameSource,
-      birthYear: 2015 + Number(data.birthYearIndex),
-      birthMonth: Number(data.birthMonthIndex) + 1,
+      birthDate: data.birthDate,
+      birthTime: data.birthTime,
+      birthYear: Number(dateParts[0]),
+      birthMonth: Number(dateParts[1]),
+      birthDay: Number(dateParts[2]),
+      birthHour: Number(timeParts[0]),
+      birthMinute: Number(timeParts[1]),
       gender: data.gender,
       styles: data.styleOptions.filter((style) => style.active).map((style) => style.id),
       length: data.length,

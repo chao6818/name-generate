@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="灵名AI根据父母姓名中的寓意，为宝宝生成全新的姓名参考。">
+  <meta name="description" content="灵名AI结合父母姓名参考、出生日期时辰、八字五行、八卦易经与热门名字灵感，为宝宝生成姓名参考。">
   <title>灵名AI · 父母姓名参考起名</title>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -37,6 +37,11 @@
         </div>
 
         <div class="field-group">
+          <label for="generationChar">辈分用字（选填）</label>
+          <input id="generationChar" type="text" maxlength="1" placeholder="如：贤、承、书" autocomplete="off">
+        </div>
+
+        <div class="field-group">
           <label>宝宝姓氏</label>
           <div class="segmented compact" id="surnameTabs" role="group" aria-label="宝宝姓氏">
             <button type="button" class="segment" data-source="father">父姓</button>
@@ -46,40 +51,10 @@
         </div>
 
         <div class="field-group">
-          <label>出生年月</label>
+          <label>出生日期</label>
           <div class="select-row">
-            <select id="birthYear" aria-label="出生年份">
-              <option value="2015">2015年</option>
-              <option value="2016">2016年</option>
-              <option value="2017">2017年</option>
-              <option value="2018">2018年</option>
-              <option value="2019">2019年</option>
-              <option value="2020">2020年</option>
-              <option value="2021">2021年</option>
-              <option value="2022">2022年</option>
-              <option value="2023">2023年</option>
-              <option value="2024">2024年</option>
-              <option value="2025">2025年</option>
-              <option value="2026" selected>2026年</option>
-              <option value="2027">2027年</option>
-              <option value="2028">2028年</option>
-              <option value="2029">2029年</option>
-              <option value="2030">2030年</option>
-            </select>
-            <select id="birthMonth" aria-label="出生月份">
-              <option value="1">1月</option>
-              <option value="2">2月</option>
-              <option value="3">3月</option>
-              <option value="4">4月</option>
-              <option value="5">5月</option>
-              <option value="6">6月</option>
-              <option value="7">7月</option>
-              <option value="8" selected>8月</option>
-              <option value="9">9月</option>
-              <option value="10">10月</option>
-              <option value="11">11月</option>
-              <option value="12">12月</option>
-            </select>
+            <input id="birthDate" type="date" value="2026-08-24" min="2015-01-01" max="2030-12-31" aria-label="出生日期">
+            <input id="birthTime" type="time" value="08:00" aria-label="出生时间">
           </div>
         </div>
 
@@ -120,7 +95,7 @@
             <label for="countRange">生成数量</label>
             <output id="countOutput" for="countRange">12</output>
           </div>
-          <input id="countRange" type="range" min="5" max="30" value="12" step="1">
+          <input id="countRange" type="range" min="5" max="60" value="12" step="1">
         </div>
 
         <button class="generate-button" id="generateButton" type="button">

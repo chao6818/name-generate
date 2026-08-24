@@ -11,6 +11,144 @@ const STYLE_OPTIONS = [
 
 const ZODIAC_LIST = ["鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"];
 
+const STEMS = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+const BRANCHES = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+const STEM_ELEMENTS = {
+  "甲": "木", "乙": "木", "丙": "火", "丁": "火", "戊": "土",
+  "己": "土", "庚": "金", "辛": "金", "壬": "水", "癸": "水"
+};
+const BRANCH_ELEMENTS = {
+  "子": "水", "丑": "土", "寅": "木", "卯": "木", "辰": "土", "巳": "火",
+  "午": "火", "未": "土", "申": "金", "酉": "金", "戌": "土", "亥": "水"
+};
+const HOUR_LABELS = [
+  "子时", "丑时", "寅时", "卯时", "辰时", "巳时",
+  "午时", "未时", "申时", "酉时", "戌时", "亥时"
+];
+
+const GUAS = [
+  { name: "乾", symbol: "天", line: "天行健，君子以自强不息", element: "金" },
+  { name: "兑", symbol: "泽", line: "丽泽兑，君子以朋友讲习", element: "金" },
+  { name: "离", symbol: "火", line: "明两作离，大人以继明照于四方", element: "火" },
+  { name: "震", symbol: "雷", line: "洊雷震，君子以恐惧修省", element: "木" },
+  { name: "巽", symbol: "风", line: "随风巽，君子以申命行事", element: "木" },
+  { name: "坎", symbol: "水", line: "水洊至，习坎，君子以常德行", element: "水" },
+  { name: "艮", symbol: "山", line: "兼山艮，君子以思不出其位", element: "土" },
+  { name: "坤", symbol: "地", line: "地势坤，君子以厚德载物", element: "土" }
+];
+
+const HOUR_GUA_INDEX = [5, 6, 6, 3, 4, 4, 2, 7, 7, 1, 0, 0];
+
+const CLASSIC_LINES = [
+  { source: "《诗经》", line: "如月之恒，如日之升" },
+  { source: "《诗经》", line: "有匪君子，如切如磋" },
+  { source: "《诗经》", line: "桃之夭夭，灼灼其华" },
+  { source: "《诗经》", line: "蒹葭苍苍，白露为霜" },
+  { source: "《诗经》", line: "如竹苞矣，如松茂矣" },
+  { source: "《楚辞》", line: "与天地兮同寿，与日月兮齐光" },
+  { source: "《楚辞》", line: "纷吾既有此内美兮，又重之以修能" },
+  { source: "《楚辞》", line: "吉日兮辰良，穆将愉兮上皇" },
+  { source: "《楚辞》", line: "乐莫乐兮新相知" },
+  { source: "《周易》", line: "君子藏器于身，待时而动" },
+  { source: "《周易》", line: "厚德载物，自强不息" },
+  { source: "《论语》", line: "志于道，据于德，依于仁，游于艺" },
+  { source: "《大学》", line: "苟日新，日日新，又日新" },
+  { source: "唐诗", line: "长风破浪会有时，直挂云帆济沧海" },
+  { source: "唐诗", line: "会当凌绝顶，一览众山小" },
+  { source: "唐诗", line: "海内存知己，天涯若比邻" },
+  { source: "宋词", line: "但愿人长久，千里共婵娟" },
+  { source: "宋词", line: "何须浅碧深红色，自是花中第一流" },
+  { source: "宋诗", line: "不畏浮云遮望眼，自缘身在最高层" },
+  { source: "宋诗", line: "山重水复疑无路，柳暗花明又一村" }
+];
+
+const ZODIAC_NOTES = {
+  "鼠": "宜用 宀、口、米、王 字根，忌午马相冲",
+  "牛": "宜用 艹、禾、米、车 字根，忌未羊相冲",
+  "虎": "宜用 山、木、王、月 字根，忌申猴相冲",
+  "兔": "宜用 艹、木、禾、月 字根，忌酉鸡相冲",
+  "龙": "宜用 日、月、雨、王 字根，忌戌狗相冲",
+  "蛇": "宜用 口、宀、木、艹 字根，忌亥猪相冲",
+  "马": "宜用 艹、木、宀、禾 字根，忌子鼠相冲",
+  "羊": "宜用 艹、木、禾、米 字根，忌丑牛相冲",
+  "猴": "宜用 山、木、禾、王 字根，忌寅虎相冲",
+  "鸡": "宜用 米、禾、豆、山 字根，忌卯兔相冲",
+  "狗": "宜用 宀、人、艹、心 字根，忌辰龙相冲",
+  "猪": "宜用 宀、水、米、禾 字根，忌巳蛇相冲"
+};
+
+const CHAR_ELEMENTS = {
+  "砚": "土", "辰": "土", "屹": "土", "屿": "土", "泽": "水", "煜": "火",
+  "川": "水", "霖": "水", "昊": "火", "修": "金", "博": "水", "弈": "木",
+  "昭": "火", "恒": "土", "峻": "土", "谦": "木", "澈": "水", "予": "木",
+  "钧": "金", "书": "金", "聿": "木", "森": "木", "澜": "水", "彧": "火",
+  "南": "火", "卓": "火", "望": "水", "清": "水", "航": "水", "启": "木",
+  "铭": "金", "璟": "火", "淮": "水", "桐": "木", "晟": "火", "尧": "土",
+  "岳": "土", "朗": "火", "靖": "金", "昂": "火", "冠": "木", "峥": "土",
+  "元": "木", "弘": "水", "尚": "金", "蔚": "木", "邈": "水", "璞": "土",
+  "铮": "金", "琛": "金", "稷": "木", "乾": "金", "彻": "火", "翼": "木",
+  "衡": "土", "羲": "金", "若": "木", "兮": "木", "沐": "水", "涵": "水",
+  "汐": "水", "舒": "金", "萱": "木", "茉": "木", "芮": "木", "禾": "木",
+  "穗": "木", "安": "土", "宇": "土", "宸": "金", "林": "木", "柏": "木",
+  "诺": "火", "一": "土", "佑": "土", "昕": "火", "昱": "火",
+  "晚": "水", "棠": "木", "初": "金", "宁": "火", "语": "木", "栀": "木",
+  "然": "金", "芷": "木", "吟": "金", "晴": "火", "知": "火", "夏": "火",
+  "琳": "木", "姝": "金", "瑾": "金", "珂": "土", "星": "火", "悦": "金",
+  "澄": "水", "宛": "土", "亦": "土", "嘉": "木", "霏": "水", "芝": "木",
+  "玥": "金", "婠": "土", "婉": "土", "娉": "水", "菡": "木", "菁": "木",
+  "芙": "木", "霓": "水", "晗": "火", "蘅": "木", "恬": "火", "莞": "木",
+  "婳": "土", "妤": "土", "芃": "木", "茗": "木", "槿": "木", "珞": "火",
+  "璇": "火", "荞": "木", "蕙": "木", "芸": "木", "荻": "木", "娴": "土",
+  "锦": "金", "程": "火", "钰": "金", "子": "水", "泓": "水", "楷": "木",
+  "熙": "水", "赫": "火", "承": "金", "睿": "金", "轩": "土", "逸": "土",
+  "帆": "水", "瑞": "金", "烨": "火", "皓": "木", "彬": "木", "越": "土",
+  "哲": "火", "源": "水", "阳": "火", "文": "水", "俊": "火", "毅": "木",
+  "成": "金", "珩": "金", "墨": "土", "昀": "火", "鹤": "水", "树": "木",
+  "之": "火", "少": "金", "商": "金", "野": "土", "微": "水", "行": "水",
+  "慎": "金", "华": "水", "佩": "水", "江": "水", "离": "火", "梓": "木",
+  "懿": "土", "城": "土", "驰": "火", "凡": "水", "曦": "火", "明": "火",
+  "志": "火", "远": "土", "风": "木", "舟": "金", "山": "土", "言": "木",
+  "瑶": "火", "妍": "水", "诗": "金", "欣": "木", "怡": "土", "思": "金",
+  "念": "火", "意": "土", "以": "土", "月": "水", "洛": "水", "璃": "土",
+  "芊": "木", "云": "水", "乔": "木", "欢": "水", "梦": "木", "琪": "木",
+  "衿": "木", "乐": "火", "颖": "木", "雅": "木", "馨": "金", "楠": "木",
+  "嫣": "土", "洁": "水", "静": "金", "雪": "水", "彤": "火",
+  "可": "木", "婷": "火", "佳": "木", "雨": "水", "紫": "火",
+  "奕": "木", "和": "土", "景": "木", "浩": "水", "骏": "木"
+};
+
+const CHAR_STROKES = {
+  "砚": 9, "辰": 7, "屹": 6, "屿": 6, "泽": 8, "煜": 13, "川": 3, "霖": 16,
+  "昊": 8, "修": 9, "博": 12, "弈": 9, "昭": 9, "恒": 9, "峻": 10, "谦": 12,
+  "澈": 15, "予": 4, "钧": 9, "书": 4, "聿": 6, "森": 12, "澜": 15, "彧": 10,
+  "南": 9, "卓": 8, "望": 11, "清": 11, "航": 10, "启": 7, "铭": 11, "璟": 16,
+  "淮": 11, "桐": 10, "晟": 10, "尧": 6, "岳": 8, "朗": 10, "靖": 13, "昂": 8,
+  "冠": 9, "峥": 9, "元": 4, "弘": 5, "尚": 8, "蔚": 14, "邈": 17, "璞": 16,
+  "铮": 11, "琛": 12, "稷": 15, "乾": 11, "彻": 7, "翼": 17, "衡": 16, "羲": 16,
+  "若": 8, "兮": 4, "沐": 7, "涵": 11, "汐": 6, "舒": 12, "萱": 12, "茉": 8,
+  "芮": 7, "禾": 5, "穗": 17, "安": 6, "宇": 6, "宸": 10, "林": 8, "柏": 9,
+  "诺": 10, "一": 1, "佑": 7, "昕": 8, "昱": 9,
+  "晚": 11, "棠": 12, "初": 7, "宁": 5, "语": 9, "栀": 10, "然": 12, "芷": 7,
+  "吟": 7, "晴": 12, "知": 8, "夏": 10, "琳": 12, "姝": 9, "瑾": 15, "珂": 9,
+  "星": 9, "悦": 10, "澄": 15, "宛": 8, "亦": 6, "嘉": 14, "霏": 16, "芝": 6,
+  "玥": 8, "婠": 11, "婉": 11, "娉": 10, "菡": 11, "菁": 11, "芙": 7, "霓": 16,
+  "晗": 11, "蘅": 16, "恬": 9, "莞": 10, "婳": 12, "妤": 7, "芃": 6, "茗": 9,
+  "槿": 15, "珞": 10, "璇": 15, "荞": 9, "蕙": 15, "芸": 7, "荻": 10, "娴": 10,
+  "锦": 13, "程": 12, "钰": 10, "子": 3, "泓": 8, "楷": 13, "熙": 14, "赫": 14,
+  "承": 8, "睿": 14, "轩": 7, "逸": 11, "帆": 6, "瑞": 13, "烨": 10, "皓": 12,
+  "彬": 11, "越": 12, "哲": 10, "源": 13, "阳": 6, "文": 4, "俊": 9, "毅": 15,
+  "成": 6, "珩": 10, "墨": 15, "昀": 8, "鹤": 15, "树": 9, "之": 3, "少": 4,
+  "商": 11, "野": 11, "微": 13, "行": 6, "慎": 13, "华": 6, "佩": 8, "江": 6,
+  "离": 10, "梓": 11, "懿": 22, "城": 9, "驰": 6, "凡": 3, "曦": 20, "明": 8,
+  "志": 7, "远": 7, "风": 4, "舟": 6, "山": 3, "言": 7,
+  "瑶": 14, "妍": 7, "诗": 8, "欣": 8, "怡": 8, "思": 9, "念": 8, "意": 13,
+  "以": 4, "月": 4, "洛": 9, "璃": 14, "芊": 6, "云": 4, "乔": 6, "欢": 6,
+  "梦": 11, "琪": 12, "衿": 9, "乐": 5, "颖": 13, "雅": 12, "馨": 20, "楠": 13,
+  "嫣": 14, "洁": 9, "静": 14, "雪": 11, "彤": 7,
+  "可": 5, "婷": 12, "佳": 8, "雨": 8, "紫": 12,
+  "奕": 9, "和": 8, "景": 12, "浩": 10, "骏": 11
+};
+
 const SURNAME_PINYIN = {
   "王": "wáng", "李": "lǐ", "张": "zhāng", "刘": "liú", "陈": "chén",
   "杨": "yáng", "赵": "zhào", "黄": "huáng", "吴": "wú", "徐": "xú",
@@ -137,6 +275,9 @@ const SEASON_BONUS_CHARS = {
   autumn: ["清", "汐", "澄", "澜", "玥", "禾", "穗", "荻"],
   winter: ["初", "安", "宁", "璞", "恬", "元"]
 };
+
+const FEMALE_ONLY_CHARS = new Set(["汐", "萱", "茉", "芮", "禾", "穗"]);
+const MALE_ONLY_CHARS = new Set(["宇", "宸", "林", "柏"]);
 
 const PARENT_REFERENCE = [
   { c: "明", meaning: "光明通达", tags: ["modern", "bold"] },
@@ -397,6 +538,261 @@ const BABY_CHARS = {
   ]
 };
 
+const POPULAR_CHARS = [
+  { c: "锦", py: "jǐn", meaning: "锦绣前程，光彩明亮", tags: ["bold", "elegant"] },
+  { c: "程", py: "chéng", meaning: "鹏程万里，行稳致远", tags: ["bold", "modern"] },
+  { c: "钰", py: "yù", meaning: "温润如玉，珍贵难得", tags: ["classic", "elegant"] },
+  { c: "嘉", py: "jiā", meaning: "嘉言懿行，和顺美好", tags: ["bold", "classic"] },
+  { c: "子", py: "zǐ", meaning: "子衿文雅，灵秀从容", tags: ["classic", "elegant"] },
+  { c: "泓", py: "hóng", meaning: "泓澈清远，内秀沉稳", tags: ["fresh", "classic"] },
+  { c: "楷", py: "kǎi", meaning: "楷模端正，立身有则", tags: ["bold", "classic"] },
+  { c: "熙", py: "xī", meaning: "光明熙和，温暖明亮", tags: ["modern", "warm"] },
+  { c: "赫", py: "hè", meaning: "显赫明亮，气象宏大", tags: ["bold", "modern"] },
+  { c: "承", py: "chéng", meaning: "承继担当，行有方向", tags: ["bold", "classic"] },
+  { c: "睿", py: "ruì", meaning: "睿智通达，思虑明远", tags: ["elegant", "modern"] },
+  { c: "轩", py: "xuān", meaning: "气宇轩昂，俊朗开阔", tags: ["bold", "modern"] },
+  { c: "逸", py: "yì", meaning: "飘逸洒脱，自在从容", tags: ["elegant", "modern"] },
+  { c: "帆", py: "fān", meaning: "云帆济海，乘风破浪", tags: ["bold", "fresh"] },
+  { c: "然", py: "rán", meaning: "安然自在，不争不扰", tags: ["warm", "elegant"] },
+  { c: "瑞", py: "ruì", meaning: "祥瑞安康，福泽绵长", tags: ["warm", "classic"] },
+  { c: "烨", py: "yè", meaning: "光华盛放，温暖明亮", tags: ["bold", "warm"] },
+  { c: "皓", py: "hào", meaning: "皓月当空，清澈高远", tags: ["elegant", "classic"] },
+  { c: "彬", py: "bīn", meaning: "文质彬彬，温润有礼", tags: ["classic", "elegant"] },
+  { c: "越", py: "yuè", meaning: "卓越向前，不断超越", tags: ["bold", "modern"] },
+  { c: "哲", py: "zhé", meaning: "哲思明辨，智慧通透", tags: ["classic", "elegant"] },
+  { c: "源", py: "yuán", meaning: "源远流长，根基深厚", tags: ["classic", "warm"] },
+  { c: "星", py: "xīng", meaning: "星光璀璨，自带光芒", tags: ["modern", "bold"] },
+  { c: "阳", py: "yáng", meaning: "阳光明朗，温暖向上", tags: ["fresh", "warm"] },
+  { c: "文", py: "wén", meaning: "文采斐然，博学知礼", tags: ["classic", "elegant"] },
+  { c: "俊", py: "jùn", meaning: "俊逸挺拔，风度翩翩", tags: ["modern", "elegant"] },
+  { c: "毅", py: "yì", meaning: "坚毅果敢，笃行不怠", tags: ["bold", "modern"] },
+  { c: "成", py: "chéng", meaning: "成长有成，心想事成", tags: ["warm", "modern"] },
+  { c: "珩", py: "héng", meaning: "玉之美光，温润贵重", tags: ["elegant", "classic"] },
+  { c: "墨", py: "mò", meaning: "翰墨书香，文气深厚", tags: ["classic", "elegant"] },
+  { c: "昀", py: "yún", meaning: "日光温润，明朗和煦", tags: ["fresh", "modern"] },
+  { c: "鹤", py: "hè", meaning: "鹤立清远，高洁自在", tags: ["bold", "elegant"] },
+  { c: "树", py: "shù", meaning: "树德立人，挺拔向上", tags: ["bold", "classic"] },
+  { c: "之", py: "zhī", meaning: "行远自迩，谦逊有度", tags: ["classic", "elegant"] },
+  { c: "少", py: "shào", meaning: "少怀壮志，意气风发", tags: ["bold", "modern"] },
+  { c: "商", py: "shāng", meaning: "商星明朗，志向高远", tags: ["classic", "elegant"] },
+  { c: "野", py: "yě", meaning: "星野辽阔，自由舒展", tags: ["modern", "fresh"] },
+  { c: "微", py: "wēi", meaning: "见微知著，洞明通透", tags: ["classic", "elegant"] },
+  { c: "行", py: "xíng", meaning: "笃行致远，知行合一", tags: ["bold", "classic"] },
+  { c: "慎", py: "shèn", meaning: "慎思笃行，稳重可靠", tags: ["classic", "elegant"] },
+  { c: "华", py: "huá", meaning: "光华灿烂，气度不凡", tags: ["bold", "classic"] },
+  { c: "佩", py: "pèi", meaning: "玉佩温润，品德高洁", tags: ["elegant", "classic"] },
+  { c: "江", py: "jiāng", meaning: "江海辽阔，胸怀宽广", tags: ["bold", "fresh"] },
+  { c: "离", py: "lí", meaning: "离离青翠，蓬勃向上", tags: ["fresh", "elegant"] },
+  { c: "梓", py: "zǐ", meaning: "桑梓故里，扎根成长", tags: ["classic", "warm"] },
+  { c: "懿", py: "yì", meaning: "懿德嘉行，品性端方", tags: ["classic", "elegant"] },
+  { c: "城", py: "chéng", meaning: "众志成城，坚定有力", tags: ["bold", "warm"] },
+  { c: "驰", py: "chí", meaning: "驰骋千里，自由奔放", tags: ["bold", "modern"] },
+  { c: "凡", py: "fán", meaning: "不凡自在，从容笃定", tags: ["modern", "elegant"] },
+  { c: "曦", py: "xī", meaning: "晨曦初照，朝气蓬勃", tags: ["fresh", "warm"] },
+  { c: "明", py: "míng", meaning: "光明通达，心性澄明", tags: ["bold", "classic"] },
+  { c: "志", py: "zhì", meaning: "志存高远，心怀梦想", tags: ["bold", "classic"] },
+  { c: "远", py: "yuǎn", meaning: "行稳致远，目光长远", tags: ["bold", "classic"] },
+  { c: "风", py: "fēng", meaning: "风清月朗，洒脱自在", tags: ["fresh", "elegant"] },
+  { c: "舟", py: "zhōu", meaning: "云舟远航，乘风破浪", tags: ["bold", "fresh"] },
+  { c: "山", py: "shān", meaning: "山高水长，沉稳坚定", tags: ["bold", "classic"] },
+  { c: "言", py: "yán", meaning: "言而有信，温文知礼", tags: ["elegant", "classic"] },
+  { c: "瑶", py: "yáo", meaning: "瑶光璀璨，珍贵纯净", tags: ["elegant", "modern"] },
+  { c: "妍", py: "yán", meaning: "妍丽灵动，明媚动人", tags: ["fresh", "elegant"] },
+  { c: "诗", py: "shī", meaning: "诗意盎然，文雅灵秀", tags: ["classic", "elegant"] },
+  { c: "欣", py: "xīn", meaning: "欣然欢喜，朝气蓬勃", tags: ["fresh", "warm"] },
+  { c: "怡", py: "yí", meaning: "心旷神怡，安然喜乐", tags: ["elegant", "warm"] },
+  { c: "思", py: "sī", meaning: "善思明辨，聪慧通透", tags: ["elegant", "modern"] },
+  { c: "桐", py: "tóng", meaning: "梧桐高洁，正直向上", tags: ["classic", "elegant"] },
+  { c: "念", py: "niàn", meaning: "念想温存，心怀美好", tags: ["warm", "elegant"] },
+  { c: "意", py: "yì", meaning: "意趣盎然，丰盈自在", tags: ["elegant", "modern"] },
+  { c: "以", py: "yǐ", meaning: "以此启新，生生不息", tags: ["modern", "fresh"] },
+  { c: "月", py: "yuè", meaning: "明月清辉，纯净高远", tags: ["classic", "elegant"] },
+  { c: "洛", py: "luò", meaning: "洛水灵动，温润清雅", tags: ["fresh", "classic"] },
+  { c: "璃", py: "lí", meaning: "琉璃通透，晶莹明亮", tags: ["modern", "fresh"] },
+  { c: "芊", py: "qiān", meaning: "芊蔚葱茏，生机盎然", tags: ["fresh", "cute"] },
+  { c: "云", py: "yún", meaning: "云卷云舒，舒展自在", tags: ["fresh", "elegant"] },
+  { c: "乔", py: "qiáo", meaning: "乔木挺拔，向上生长", tags: ["fresh", "classic"] },
+  { c: "南", py: "nán", meaning: "向阳而生，明朗开阔", tags: ["fresh", "warm"] },
+  { c: "欢", py: "huān", meaning: "欢喜洋溢，明朗可爱", tags: ["fresh", "cute"] },
+  { c: "梦", py: "mèng", meaning: "梦想可期，心怀远方", tags: ["modern", "elegant"] },
+  { c: "琪", py: "qí", meaning: "美玉珍贵，光彩内蕴", tags: ["elegant", "classic"] },
+  { c: "衿", py: "jīn", meaning: "青青子衿，文雅灵动", tags: ["classic", "elegant"] },
+  { c: "乐", py: "lè", meaning: "乐享人生，明朗欢快", tags: ["warm", "fresh"] },
+  { c: "颖", py: "yǐng", meaning: "聪颖出众，灵气通透", tags: ["modern", "bold"] },
+  { c: "雅", py: "yǎ", meaning: "雅正大方，气质从容", tags: ["elegant", "classic"] },
+  { c: "馨", py: "xīn", meaning: "温馨馨香，美好和乐", tags: ["warm", "fresh"] },
+  { c: "楠", py: "nán", meaning: "楠木高直，坚韧挺拔", tags: ["classic", "bold"] },
+  { c: "嫣", py: "yān", meaning: "嫣然一笑，明媚可爱", tags: ["fresh", "cute"] },
+  { c: "洁", py: "jié", meaning: "洁白纯净，心性澄明", tags: ["fresh", "elegant"] },
+  { c: "静", py: "jìng", meaning: "安静从容，内心笃定", tags: ["elegant", "classic"] },
+  { c: "雪", py: "xuě", meaning: "冰雪纯净，清雅高洁", tags: ["fresh", "elegant"] },
+  { c: "彤", py: "tóng", meaning: "彤云满天，温暖明亮", tags: ["bold", "warm"] },
+  { c: "亦", py: "yì", meaning: "亦真亦美，自在丰盈", tags: ["modern", "elegant"] },
+  { c: "可", py: "kě", meaning: "可心可意，明朗可爱", tags: ["fresh", "warm"] },
+  { c: "婷", py: "tíng", meaning: "婷婷玉立，秀美从容", tags: ["elegant", "fresh"] },
+  { c: "佳", py: "jiā", meaning: "佳美圆满，和顺幸福", tags: ["fresh", "warm"] },
+  { c: "雨", py: "yǔ", meaning: "润物无声，温柔澄澈", tags: ["fresh", "elegant"] },
+  { c: "紫", py: "zǐ", meaning: "紫气东来，祥瑞高远", tags: ["classic", "warm"] },
+  { c: "奕", py: "yì", meaning: "神采奕奕，俊朗有光", tags: ["modern", "bold"] },
+  { c: "和", py: "hé", meaning: "和顺安康，温润有度", tags: ["warm", "elegant"] },
+  { c: "景", py: "jǐng", meaning: "风景清朗，光明高远", tags: ["elegant", "fresh"] },
+  { c: "浩", py: "hào", meaning: "浩荡开阔，气度不凡", tags: ["bold", "classic"] },
+  { c: "骏", py: "jùn", meaning: "骏马奔腾，昂扬向上", tags: ["bold", "modern"] }
+];
+
+const POPULAR_CHAR_GENDER = {
+  "锦": "a", "程": "m", "钰": "a", "嘉": "m", "子": "a", "泓": "m", "楷": "m",
+  "熙": "m", "赫": "m", "承": "m", "睿": "m", "轩": "m", "逸": "m", "帆": "m",
+  "然": "a", "瑞": "m", "烨": "m", "皓": "m", "彬": "m", "越": "m", "哲": "m",
+  "源": "m", "星": "a", "阳": "m", "文": "m", "俊": "m", "毅": "m", "成": "m",
+  "珩": "m", "墨": "m", "昀": "m", "鹤": "m", "树": "m", "之": "m", "少": "m",
+  "商": "m", "野": "m", "微": "m", "行": "m", "慎": "m", "华": "m", "佩": "m",
+  "江": "m", "离": "m", "梓": "a", "懿": "m", "城": "m", "驰": "m", "凡": "m",
+  "曦": "f", "明": "a", "志": "m", "远": "m", "风": "m", "舟": "m", "山": "m",
+  "言": "m", "瑶": "f", "妍": "f", "诗": "f", "欣": "f", "怡": "f", "思": "f",
+  "桐": "f", "念": "f", "意": "f", "以": "f", "月": "f", "洛": "f", "璃": "f",
+  "芊": "f", "云": "a", "乔": "f", "南": "a", "欢": "f", "梦": "f", "琪": "f",
+  "衿": "f", "乐": "f", "颖": "f", "雅": "f", "馨": "f", "楠": "f", "嫣": "f",
+  "洁": "f", "静": "f", "雪": "f", "彤": "f", "亦": "f",
+  "可": "f", "婷": "f", "佳": "f", "雨": "f", "紫": "f",
+  "奕": "m", "和": "a", "景": "m", "浩": "m", "骏": "m"
+};
+
+const POPULAR_NAMES = [
+  { n: "锦程", py: "jǐn chéng", g: "m", t: ["bold", "modern"] },
+  { n: "沐宸", py: "mù chén", g: "m", t: ["fresh", "bold"] },
+  { n: "铭泽", py: "míng zé", g: "m", t: ["classic", "warm"] },
+  { n: "浩宇", py: "hào yǔ", g: "m", t: ["bold", "modern"] },
+  { n: "奕辰", py: "yì chén", g: "m", t: ["modern", "bold"] },
+  { n: "瑞泽", py: "ruì zé", g: "m", t: ["warm", "classic"] },
+  { n: "沐阳", py: "mù yáng", g: "m", t: ["fresh", "warm"] },
+  { n: "星辰", py: "xīng chén", g: "m", t: ["modern", "bold"] },
+  { n: "钧泽", py: "jūn zé", g: "m", t: ["bold", "classic"] },
+  { n: "昱珩", py: "yù héng", g: "m", t: ["modern", "elegant"] },
+  { n: "铭宇", py: "míng yǔ", g: "m", t: ["classic", "bold"] },
+  { n: "泽楷", py: "zé kǎi", g: "m", t: ["warm", "classic"] },
+  { n: "予安", py: "yǔ ān", g: "a", t: ["warm", "elegant"] },
+  { n: "一诺", py: "yī nuò", g: "a", t: ["modern", "bold"] },
+  { n: "承宇", py: "chéng yǔ", g: "m", t: ["bold", "classic"] },
+  { n: "宇辰", py: "yǔ chén", g: "m", t: ["modern", "bold"] },
+  { n: "峻霖", py: "jùn lín", g: "m", t: ["bold", "warm"] },
+  { n: "泽安", py: "zé ān", g: "m", t: ["warm", "elegant"] },
+  { n: "屹川", py: "yì chuān", g: "m", t: ["bold", "modern"] },
+  { n: "承泽", py: "chéng zé", g: "m", t: ["classic", "warm"] },
+  { n: "子墨", py: "zǐ mò", g: "m", t: ["classic", "elegant"] },
+  { n: "若昀", py: "ruò yún", g: "m", t: ["elegant", "modern"] },
+  { n: "景行", py: "jǐng xíng", g: "m", t: ["classic", "bold"] },
+  { n: "鹤轩", py: "hè xuān", g: "m", t: ["bold", "elegant"] },
+  { n: "弘毅", py: "hóng yì", g: "m", t: ["bold", "classic"] },
+  { n: "嘉树", py: "jiā shù", g: "m", t: ["bold", "classic"] },
+  { n: "之恒", py: "zhī héng", g: "m", t: ["classic", "elegant"] },
+  { n: "少商", py: "shào shāng", g: "m", t: ["classic", "modern"] },
+  { n: "星野", py: "xīng yě", g: "m", t: ["modern", "cool"] },
+  { n: "知微", py: "zhī wēi", g: "m", t: ["classic", "elegant"] },
+  { n: "南风", py: "nán fēng", g: "m", t: ["fresh", "warm"] },
+  { n: "行之", py: "xíng zhī", g: "m", t: ["bold", "classic"] },
+  { n: "慎言", py: "shèn yán", g: "m", t: ["classic", "elegant"] },
+  { n: "昭华", py: "zhāo huá", g: "m", t: ["classic", "bold"] },
+  { n: "启明", py: "qǐ míng", g: "m", t: ["modern", "bold"] },
+  { n: "云舟", py: "yún zhōu", g: "m", t: ["fresh", "bold"] },
+  { n: "知远", py: "zhī yuǎn", g: "m", t: ["classic", "bold"] },
+  { n: "望舒", py: "wàng shū", g: "m", t: ["classic", "elegant"] },
+  { n: "南山", py: "nán shān", g: "m", t: ["bold", "classic"] },
+  { n: "江离", py: "jiāng lí", g: "m", t: ["fresh", "classic"] },
+  { n: "子佩", py: "zǐ pèi", g: "m", t: ["classic", "elegant"] },
+  { n: "清和", py: "qīng hé", g: "m", t: ["elegant", "classic"] },
+  { n: "明轩", py: "míng xuān", g: "m", t: ["bold", "modern"] },
+  { n: "亦辰", py: "yì chén", g: "m", t: ["modern", "bold"] },
+  { n: "俊泽", py: "jùn zé", g: "m", t: ["modern", "warm"] },
+  { n: "奕宸", py: "yì chén", g: "m", t: ["modern", "bold"] },
+  { n: "宇泽", py: "yǔ zé", g: "m", t: ["bold", "warm"] },
+  { n: "嘉懿", py: "jiā yì", g: "m", t: ["bold", "classic"] },
+  { n: "梓睿", py: "zǐ ruì", g: "m", t: ["classic", "modern"] },
+  { n: "明哲", py: "míng zhé", g: "m", t: ["classic", "elegant"] },
+  { n: "浩然", py: "hào rán", g: "m", t: ["bold", "classic"] },
+  { n: "博文", py: "bó wén", g: "m", t: ["classic", "elegant"] },
+  { n: "思远", py: "sī yuǎn", g: "m", t: ["elegant", "bold"] },
+  { n: "泽霖", py: "zé lín", g: "m", t: ["warm", "elegant"] },
+  { n: "煜城", py: "yù chéng", g: "m", t: ["bold", "warm"] },
+  { n: "睿哲", py: "ruì zhé", g: "m", t: ["elegant", "classic"] },
+  { n: "书言", py: "shū yán", g: "m", t: ["classic", "elegant"] },
+  { n: "骏驰", py: "jùn chí", g: "m", t: ["bold", "modern"] },
+  { n: "一凡", py: "yī fán", g: "m", t: ["modern", "elegant"] },
+  { n: "宇轩", py: "yǔ xuān", g: "m", t: ["bold", "modern"] },
+  { n: "景逸", py: "jǐng yì", g: "m", t: ["elegant", "modern"] },
+  { n: "云帆", py: "yún fān", g: "m", t: ["fresh", "bold"] },
+  { n: "星宇", py: "xīng yǔ", g: "m", t: ["modern", "bold"] },
+  { n: "宇航", py: "yǔ háng", g: "m", t: ["bold", "modern"] },
+  { n: "辰逸", py: "chén yì", g: "m", t: ["modern", "elegant"] },
+  { n: "思成", py: "sī chéng", g: "m", t: ["elegant", "warm"] },
+  { n: "志远", py: "zhì yuǎn", g: "m", t: ["bold", "classic"] },
+  { n: "嘉禾", py: "jiā hé", g: "a", t: ["warm", "fresh"] },
+  { n: "雨桐", py: "yǔ tóng", g: "f", t: ["fresh", "elegant"] },
+  { n: "书瑶", py: "shū yáo", g: "f", t: ["classic", "elegant"] },
+  { n: "欣怡", py: "xīn yí", g: "f", t: ["fresh", "warm"] },
+  { n: "梓涵", py: "zǐ hán", g: "f", t: ["classic", "elegant"] },
+  { n: "子涵", py: "zǐ hán", g: "f", t: ["elegant", "warm"] },
+  { n: "昕玥", py: "xīn yuè", g: "f", t: ["fresh", "elegant"] },
+  { n: "汐玥", py: "xī yuè", g: "f", t: ["fresh", "elegant"] },
+  { n: "沐瑶", py: "mù yáo", g: "f", t: ["fresh", "elegant"] },
+  { n: "钰涵", py: "yù hán", g: "f", t: ["elegant", "classic"] },
+  { n: "沐妍", py: "mù yán", g: "f", t: ["fresh", "elegant"] },
+  { n: "诗瑶", py: "shī yáo", g: "f", t: ["classic", "elegant"] },
+  { n: "锦汐", py: "jǐn xī", g: "f", t: ["bold", "fresh"] },
+  { n: "若曦", py: "ruò xī", g: "f", t: ["elegant", "fresh"] },
+  { n: "清欢", py: "qīng huān", g: "f", t: ["fresh", "warm"] },
+  { n: "知意", py: "zhī yì", g: "f", t: ["elegant", "modern"] },
+  { n: "晚吟", py: "wǎn yín", g: "f", t: ["elegant", "classic"] },
+  { n: "初晴", py: "chū qíng", g: "f", t: ["fresh", "warm"] },
+  { n: "禾穗", py: "hé suì", g: "f", t: ["warm", "fresh"] },
+  { n: "芷若", py: "zhǐ ruò", g: "f", t: ["classic", "elegant"] },
+  { n: "南乔", py: "nán qiáo", g: "f", t: ["fresh", "classic"] },
+  { n: "安然", py: "ān rán", g: "f", t: ["warm", "elegant"] },
+  { n: "语汐", py: "yǔ xī", g: "f", t: ["fresh", "elegant"] },
+  { n: "佳禾", py: "jiā hé", g: "f", t: ["fresh", "warm"] },
+  { n: "思语", py: "sī yǔ", g: "f", t: ["elegant", "fresh"] },
+  { n: "星瑶", py: "xīng yáo", g: "f", t: ["modern", "elegant"] },
+  { n: "悦宁", py: "yuè níng", g: "f", t: ["fresh", "warm"] },
+  { n: "婉清", py: "wǎn qīng", g: "f", t: ["elegant", "classic"] },
+  { n: "若汐", py: "ruò xī", g: "f", t: ["elegant", "fresh"] },
+  { n: "梦瑶", py: "mèng yáo", g: "f", t: ["elegant", "modern"] },
+  { n: "佳琪", py: "jiā qí", g: "f", t: ["fresh", "elegant"] },
+  { n: "欣妍", py: "xīn yán", g: "f", t: ["fresh", "elegant"] },
+  { n: "诗涵", py: "shī hán", g: "f", t: ["classic", "elegant"] },
+  { n: "雨欣", py: "yǔ xīn", g: "f", t: ["fresh", "warm"] },
+  { n: "欣彤", py: "xīn tóng", g: "f", t: ["fresh", "warm"] },
+  { n: "子衿", py: "zǐ jīn", g: "f", t: ["classic", "elegant"] },
+  { n: "明玥", py: "míng yuè", g: "f", t: ["elegant", "classic"] },
+  { n: "云舒", py: "yún shū", g: "f", t: ["fresh", "elegant"] },
+  { n: "念安", py: "niàn ān", g: "f", t: ["warm", "elegant"] },
+  { n: "以宁", py: "yǐ níng", g: "f", t: ["modern", "warm"] },
+  { n: "洛璃", py: "luò lí", g: "f", t: ["fresh", "modern"] },
+  { n: "芃芃", py: "péng péng", g: "f", t: ["fresh", "bold"] },
+  { n: "乐瑶", py: "lè yáo", g: "f", t: ["warm", "elegant"] },
+  { n: "安琪", py: "ān qí", g: "f", t: ["warm", "elegant"] },
+  { n: "思颖", py: "sī yǐng", g: "f", t: ["elegant", "modern"] },
+  { n: "舒雅", py: "shū yǎ", g: "f", t: ["elegant", "classic"] },
+  { n: "静怡", py: "jìng yí", g: "f", t: ["elegant", "warm"] },
+  { n: "紫萱", py: "zǐ xuān", g: "f", t: ["classic", "warm"] },
+  { n: "可馨", py: "kě xīn", g: "f", t: ["fresh", "warm"] },
+  { n: "若楠", py: "ruò nán", g: "f", t: ["elegant", "classic"] },
+  { n: "梦洁", py: "mèng jié", g: "f", t: ["fresh", "elegant"] },
+  { n: "佳怡", py: "jiā yí", g: "f", t: ["fresh", "warm"] },
+  { n: "婉婷", py: "wǎn tíng", g: "f", t: ["elegant", "fresh"] },
+  { n: "雨涵", py: "yǔ hán", g: "f", t: ["fresh", "elegant"] },
+  { n: "欣悦", py: "xīn yuè", g: "f", t: ["fresh", "warm"] },
+  { n: "若彤", py: "ruò tóng", g: "f", t: ["elegant", "warm"] },
+  { n: "思琪", py: "sī qí", g: "f", t: ["elegant", "classic"] },
+  { n: "雪晴", py: "xuě qíng", g: "f", t: ["fresh", "warm"] },
+  { n: "芷晴", py: "zhǐ qíng", g: "f", t: ["fresh", "elegant"] },
+  { n: "语嫣", py: "yǔ yān", g: "f", t: ["fresh", "elegant"] },
+  { n: "雅静", py: "yǎ jìng", g: "f", t: ["elegant", "classic"] },
+  { n: "乐彤", py: "lè tóng", g: "f", t: ["warm", "fresh"] },
+  { n: "思涵", py: "sī hán", g: "f", t: ["elegant", "classic"] },
+  { n: "锦萱", py: "jǐn xuān", g: "f", t: ["bold", "warm"] },
+  { n: "芊芊", py: "qiān qiān", g: "f", t: ["fresh", "cute"] }
+];
+
 function mulberry32(seed) {
   let value = seed >>> 0;
   return function () {
@@ -427,7 +823,7 @@ function getReferenceItems(config) {
       }
     }
     if (!known) {
-      const all = BABY_CHARS.male.concat(BABY_CHARS.female);
+      const all = BABY_CHARS.male.concat(BABY_CHARS.female, POPULAR_CHARS);
       for (let i = 0; i < all.length; i++) {
         if (all[i].c === char) {
           known = all[i];
@@ -481,6 +877,114 @@ function getZodiac(year) {
   return ZODIAC_LIST[(((Number(year) - 4) % 12) + 12) % 12];
 }
 
+function getHourIndex(hour) {
+  return Math.floor((((Number(hour) || 0) + 1) % 24) / 2);
+}
+
+function getHourLabel(hour) {
+  return HOUR_LABELS[getHourIndex(hour)];
+}
+
+function getDayPillarIndex(year, month, day) {
+  const days = Math.floor(
+    (Date.UTC(Number(year), Number(month) - 1, Number(day)) - Date.UTC(2024, 0, 1)) / 86400000
+  );
+  return ((days % 60) + 60) % 60;
+}
+
+function getFourPillars(config) {
+  const year = Number(config.birthYear);
+  const month = Number(config.birthMonth);
+  const day = Number(config.birthDay);
+  const hour = Number(config.birthHour);
+  const yearIdx = (((year - 4) % 60) + 60) % 60;
+  const dayIdx = getDayPillarIndex(year, month, day);
+  const yearStem = STEMS[yearIdx % 10];
+  const yearBranch = BRANCHES[yearIdx % 12];
+  const monthBranchIdx = ((month - 2 + 12) % 12);
+  const monthStem = STEMS[(((yearIdx % 10) % 5) * 2 + monthBranchIdx + 2) % 10];
+  const monthBranch = BRANCHES[(monthBranchIdx + 2) % 12];
+  const dayStem = STEMS[dayIdx % 10];
+  const dayBranch = BRANCHES[dayIdx % 12];
+  const hourBranchIdx = getHourIndex(hour);
+  const hourStem = STEMS[(((dayIdx % 10) % 5) * 2 + hourBranchIdx) % 10];
+  const hourBranch = BRANCHES[hourBranchIdx];
+  const pillars = [
+    yearStem + yearBranch,
+    monthStem + monthBranch,
+    dayStem + dayBranch,
+    hourStem + hourBranch
+  ];
+  const counts = { 木: 0, 火: 0, 土: 0, 金: 0, 水: 0 };
+  pillars.join("").split("").forEach((char) => {
+    const element = STEM_ELEMENTS[char] || BRANCH_ELEMENTS[char];
+    if (element) counts[element]++;
+  });
+  const values = Object.keys(counts).map((key) => [key, counts[key]]);
+  const min = Math.min(...values.map((entry) => entry[1]));
+  const missing = values.filter((entry) => entry[1] === 0).map((entry) => entry[0]);
+  const weak = values.filter((entry) => entry[1] === min && entry[1] > 0).map((entry) => entry[0]);
+  return {
+    pillars,
+    counts,
+    missing,
+    weak,
+    boost: missing.length ? missing : weak
+  };
+}
+
+function getGuaByHour(hour) {
+  return GUAS[HOUR_GUA_INDEX[getHourIndex(hour)]];
+}
+
+function strokeOf(char) {
+  return CHAR_STROKES[char] || 8;
+}
+
+function getElementOfChar(char) {
+  return CHAR_ELEMENTS[char] || "·";
+}
+
+function getNumberElement(number) {
+  const mod = number % 10;
+  if (mod === 1 || mod === 2) return "木";
+  if (mod === 3 || mod === 4) return "火";
+  if (mod === 5 || mod === 6) return "土";
+  if (mod === 7 || mod === 8) return "金";
+  return "水";
+}
+
+const LUCKY_STROKE_NUMBERS = new Set([
+  1, 3, 5, 6, 7, 8, 11, 13, 15, 16, 17, 18, 21, 23, 24, 25, 29, 31, 32, 33,
+  35, 37, 39, 41, 45, 47, 48, 52, 57, 61, 63, 65, 67, 68, 81
+]);
+
+function getWuGe(surname, given) {
+  if (!surname) return null;
+  const surnameStrokes = surname.s.split("").map(strokeOf);
+  const givenStrokes = given.map((item) => strokeOf(item.c));
+  const surnameSum = surnameStrokes.reduce((sum, value) => sum + value, 0);
+  const givenSum = givenStrokes.reduce((sum, value) => sum + value, 0);
+  const total = surnameSum + givenSum;
+  const tian = surnameStrokes.length > 1 ? surnameSum : surnameStrokes[0] + 1;
+  const ren = surnameStrokes[surnameStrokes.length - 1] + givenStrokes[0];
+  const di = givenStrokes.length > 1 ? givenSum : givenStrokes[0] + 1;
+  const wai = total - ren + 1;
+  const sanCai = `${getNumberElement(tian)}${getNumberElement(ren)}${getNumberElement(di)}`;
+  const luckyCount = [tian, ren, di, wai, total].filter((value) => LUCKY_STROKE_NUMBERS.has(value)).length;
+  const verdict = luckyCount >= 4 ? "数理吉" : luckyCount >= 2 ? "数理参考" : "数理一般";
+  return {
+    tian,
+    ren,
+    di,
+    wai,
+    total,
+    sanCai,
+    verdict,
+    text: `五格 人格${ren} · 总格${total} · 三才${sanCai} · ${verdict}`
+  };
+}
+
 function getSeason(month) {
   const value = Number(month);
   if (value >= 3 && value <= 5) return "spring";
@@ -490,7 +994,27 @@ function getSeason(month) {
 }
 
 function getCandidatePool(config) {
-  let pool = config.gender === "neutral" ? BABY_CHARS.male.concat(BABY_CHARS.female) : BABY_CHARS[config.gender];
+  const genderBase =
+    config.gender === "male"
+      ? BABY_CHARS.male.filter((item) => !FEMALE_ONLY_CHARS.has(item.c))
+      : config.gender === "female"
+      ? BABY_CHARS.female.filter((item) => !MALE_ONLY_CHARS.has(item.c))
+      : BABY_CHARS.male.concat(BABY_CHARS.female);
+  const popularPool =
+    config.gender === "neutral"
+      ? POPULAR_CHARS
+      : POPULAR_CHARS.filter(
+          (item) =>
+            config.gender === "male"
+              ? POPULAR_CHAR_GENDER[item.c] !== "f"
+              : POPULAR_CHAR_GENDER[item.c] !== "m"
+        );
+  const base = genderBase.concat(popularPool);
+  const map = {};
+  base.forEach((item) => {
+    if (!map[item.c]) map[item.c] = item;
+  });
+  let pool = Object.keys(map).map((key) => map[key]);
   const excluded = new Set([...config.father.trim(), ...config.mother.trim()]);
   const withoutParentChars = pool.filter((item) => !excluded.has(item.c));
   if (withoutParentChars.length >= 6) {
@@ -505,6 +1029,43 @@ function getCandidatePool(config) {
   return pool;
 }
 
+function getAllCharLookup() {
+  const map = {};
+  BABY_CHARS.male.concat(BABY_CHARS.female, POPULAR_CHARS).forEach((item) => {
+    if (!map[item.c]) map[item.c] = item;
+  });
+  return map;
+}
+
+function getPopularName(rng, usedChars, config) {
+  if (config.length === "short") return null;
+  const lookup = getAllCharLookup();
+  const excluded = new Set([...config.father.trim(), ...config.mother.trim()]);
+  const genderMatch = (item) =>
+    config.gender === "neutral" || item.g === "a" || item.g === config.gender;
+  const available = POPULAR_NAMES.filter((item) => {
+    if (!genderMatch(item)) return false;
+    const chars = item.n.split("");
+    if (chars.some((char) => excluded.has(char))) return false;
+    if (chars.some((char) => usedChars.has(char))) return false;
+    if (config.styles.length && !item.t.some((tag) => config.styles.includes(tag))) return false;
+    return true;
+  });
+  if (!available.length) return null;
+  const choice = pick(available, rng);
+  return choice.n.split("").map((char) => {
+    const known = lookup[char];
+    return (
+      known || {
+        c: char,
+        py: "·",
+        meaning: `名字中的「${char}」`,
+        tags: ["warm", "elegant"]
+      }
+    );
+  });
+}
+
 function rankPool(pool, rng, config) {
   const refs = getReferenceItems(config);
   const refTags = [];
@@ -515,6 +1076,8 @@ function rankPool(pool, rng, config) {
   });
   const zodiacKey = `zodiac-${getZodiac(config.birthYear)}`;
   const seasonChars = SEASON_BONUS_CHARS[getSeason(config.birthMonth)] || [];
+  const profile = getFourPillars(config);
+  const gua = getGuaByHour(config.birthHour);
   return pool
     .map((item) => {
       let overlap = 0;
@@ -528,10 +1091,13 @@ function rankPool(pool, rng, config) {
         );
       }
       const categories = SPECIAL_CHAR_CATEGORIES[item.c] || [];
+      const element = getElementOfChar(item.c);
       const categoryBonus =
         (categories.includes(zodiacKey) ? 4 : 0) +
         (seasonChars.includes(item.c) ? 3 : 0) +
-        (categories.includes("unisex") ? 1 : 0);
+        (categories.includes("unisex") ? 1 : 0) +
+        (profile.boost.includes(element) ? 5 : 0) +
+        (element === gua.element ? 2 : 0);
       return {
         item,
         score: overlap * 2 + (matchesReference ? 2 : 0) + categoryBonus + rng() * 6
@@ -543,9 +1109,32 @@ function rankPool(pool, rng, config) {
 function pickGivenChars(rng, usedChars, config) {
   const pool = getCandidatePool(config);
   const ranked = rankPool(pool, rng, config);
-  const length = config.length === "short" ? 1 : config.length === "long" ? 2 : rng() > 0.35 ? 2 : 1;
+  const generationChar = (config.generationChar || "").trim();
+  let length = config.length === "short" ? 1 : config.length === "long" ? 2 : rng() > 0.35 ? 2 : 1;
   const chosen = [];
   let attempts = 0;
+
+  if (!generationChar && length === 2 && rng() < 0.22) {
+    const popular = getPopularName(rng, usedChars, config);
+    if (popular) {
+      popular.forEach((item) => usedChars.add(item.c));
+      return popular;
+    }
+  }
+
+  if (generationChar) {
+    length = Math.max(length, 2);
+    const lookup = getAllCharLookup();
+    const known =
+      lookup[generationChar] || {
+        c: generationChar,
+        py: "·",
+        meaning: `辈分字「${generationChar}」`,
+        tags: ["classic", "elegant"]
+      };
+    chosen.push(known);
+    usedChars.add(generationChar);
+  }
 
   const pickRankedChar = () => {
     const freshRanked = ranked.filter((entry) => !usedChars.has(entry.item.c));
@@ -599,13 +1188,39 @@ function makeName(rng, usedChars, config) {
   const surname = getSurname(config);
   const given = pickGivenChars(rng, usedChars, config);
   const refLine = getGroupedReferencePrompt(config);
+  const gua = getGuaByHour(config.birthHour);
+  const wuge = getWuGe(surname, given);
+  const classic = pick(CLASSIC_LINES, rng);
   return {
     text: (surname ? surname.s : "") + given.map((char) => char.c).join(""),
     pinyin: [surname ? surname.py : "", ...given.map((char) => char.py)].filter(Boolean).join(" "),
     meaning: given.map((char) => char.meaning).join(" · "),
     tags: [...new Set(given.map((char) => char.tags).reduce((all, tags) => all.concat(tags), []))].slice(0, 2),
-    refLine
+    refLine,
+    insight: `五行 ${given.map((char) => getElementOfChar(char.c)).join("·")}｜${gua.name}卦·${gua.symbol}`,
+    wuge: wuge ? wuge.text : "五格 未选姓氏",
+    classic: `用典 ${classic.source}「${classic.line}」`
   };
+}
+
+function getReferencePrompt(config) {
+  const zodiac = getZodiac(config.birthYear);
+  const profile = getFourPillars(config);
+  const gua = getGuaByHour(config.birthHour);
+  const counts = profile.counts;
+  const boostText = profile.boost.length
+    ? `宜补 ${profile.boost.join("、")}`
+    : "五行均衡";
+  const lines = [
+    `${config.birthDate} ${config.birthTime} · ${zodiac}年 · ${getHourLabel(config.birthHour)}`,
+    `八字参考 ${profile.pillars.join(" ")}`,
+    `五行 木${counts["木"]} 火${counts["火"]} 土${counts["土"]} 金${counts["金"]} 水${counts["水"]} · ${boostText}`,
+    `${getHourLabel(config.birthHour)}卦象 ${gua.name}卦·${gua.symbol}（${gua.line}）`,
+    `${zodiac}年宜用 ${ZODIAC_NOTES[zodiac] || ""}`,
+    getGroupedReferencePrompt(config),
+    "已融合 2025-2026 高频字与热门名字灵感"
+  ].filter(Boolean);
+  return lines.join("\n");
 }
 
 function generateNames(config) {
@@ -636,5 +1251,6 @@ function generateNames(config) {
 module.exports = {
   generateNames,
   getGroupedReferencePrompt,
+  getReferencePrompt,
   STYLE_OPTIONS
 };

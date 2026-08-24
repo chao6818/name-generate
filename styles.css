@@ -156,7 +156,9 @@ button {
   font-weight: 600;
 }
 
-.field-group input[type="text"] {
+.field-group input[type="text"],
+.field-group input[type="date"],
+.field-group input[type="time"] {
   width: 100%;
   height: 42px;
   padding: 0 12px;
@@ -164,6 +166,7 @@ button {
   border-radius: var(--radius);
   outline: none;
   background: var(--card);
+  color: var(--ink);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -189,7 +192,9 @@ button {
   box-shadow: 0 0 0 3px rgba(20, 125, 122, 0.13);
 }
 
-.field-group input[type="text"]:focus {
+.field-group input[type="text"]:focus,
+.field-group input[type="date"]:focus,
+.field-group input[type="time"]:focus {
   border-color: var(--teal);
   box-shadow: 0 0 0 3px rgba(20, 125, 122, 0.13);
 }
@@ -401,6 +406,20 @@ input[type="range"]::-moz-range-thumb {
   font-weight: 800;
 }
 
+.ref-pill span {
+  display: block;
+  margin-top: 3px;
+  color: var(--ink-soft);
+}
+
+.ref-pill em {
+  display: block;
+  margin-top: 3px;
+  color: #a05f3c;
+  font-size: 11px;
+  font-style: normal;
+}
+
 .name-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
@@ -408,7 +427,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .name-card {
-  min-height: 176px;
+  min-height: 216px;
   display: flex;
   flex-direction: column;
   padding: 17px 17px 13px;
@@ -460,6 +479,23 @@ input[type="range"]::-moz-range-thumb {
   color: #a05f3c;
   font-size: 12px;
   line-height: 1.5;
+}
+
+.insight-line,
+.wuge-line,
+.classic-line {
+  margin-top: 4px;
+  color: #8b8175;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.wuge-line {
+  color: #7a6a5d;
+}
+
+.classic-line {
+  color: #9a6a3f;
 }
 
 .card-foot {
@@ -588,6 +624,6 @@ input[type="range"]::-moz-range-thumb {
   }
 
   .name-card {
-    min-height: 154px;
+    min-height: 190px;
   }
 }

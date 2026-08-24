@@ -300,6 +300,24 @@
   line-height: 1.65;
 }
 
+.insight,
+.wuge,
+.classic {
+  display: block;
+  margin-top: 10rpx;
+  color: #8b8175;
+  font-size: 22rpx;
+  line-height: 1.5;
+}
+
+.wuge {
+  color: #7a6a5d;
+}
+
+.classic {
+  color: #9a6a3f;
+}
+
 .tags {
   display: flex;
   flex-wrap: wrap;

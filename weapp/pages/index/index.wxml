@@ -19,6 +19,11 @@
     </view>
 
     <view class="field">
+      <text class="label">辈分用字（选填）</text>
+      <input class="input" value="{{generationChar}}" maxlength="1" bindinput="onGenerationCharInput" placeholder="如：贤、承、书" placeholder-class="placeholder" />
+    </view>
+
+    <view class="field">
       <text class="label">宝宝姓氏</text>
       <view class="segmented">
         <view
@@ -32,13 +37,13 @@
     </view>
 
     <view class="field">
-      <text class="label">出生年月</text>
+      <text class="label">出生日期</text>
       <view class="select-row">
-        <picker mode="selector" range="{{birthYears}}" value="{{birthYearIndex}}" bindchange="onBirthYearChange">
-          <view class="picker">{{birthYears[birthYearIndex]}}</view>
+        <picker mode="date" value="{{birthDate}}" start="2015-01-01" end="2030-12-31" bindchange="onBirthDateChange">
+          <view class="picker">{{birthDate}}</view>
         </picker>
-        <picker mode="selector" range="{{birthMonths}}" value="{{birthMonthIndex}}" bindchange="onBirthMonthChange">
-          <view class="picker">{{birthMonths[birthMonthIndex]}}</view>
+        <picker mode="time" value="{{birthTime}}" bindchange="onBirthTimeChange">
+          <view class="picker">{{birthTime}}</view>
         </picker>
       </view>
     </view>
@@ -87,7 +92,7 @@
         <text class="label">生成数量</text>
         <text class="count-value">{{count}}</text>
       </view>
-      <slider min="5" max="30" step="1" value="{{count}}" activeColor="#147d7a" backgroundColor="#e5ddd1" block-size="22" bindchange="onCountChange" />
+      <slider min="5" max="60" step="1" value="{{count}}" activeColor="#147d7a" backgroundColor="#e5ddd1" block-size="22" bindchange="onCountChange" />
     </view>
 
     <button class="generate" bindtap="onGenerate">生成名字</button>
@@ -117,6 +122,9 @@
       </view>
       <text class="ref-line" wx:if="{{item.refLine}}">{{item.refLine}}</text>
       <text class="meaning">{{item.meaning}}</text>
+      <text class="insight">{{item.insight}}</text>
+      <text class="wuge">{{item.wuge}}</text>
+      <text class="classic">{{item.classic}}</text>
       <view class="tags">
         <text wx:for="{{item.tagLabels}}" wx:for-item="tag" wx:key="*this" class="tag">{{tag}}</text>
       </view>
