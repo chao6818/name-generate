@@ -119,14 +119,14 @@ Page({
     return {
       title: "灵名AI：输入父母姓名，生成有寓意的名字",
       path: "/pages/index/index",
-      imageUrl: "/assets/lingming-ai-avatar-v2.png"
+      imageUrl: "/assets/lingming-ai-avatar-v3.png"
     };
   },
 
   onShareTimeline() {
     return {
       title: "灵名AI：输入父母姓名，生成有寓意的名字",
-      imageUrl: "/assets/lingming-ai-avatar-v2.png"
+      imageUrl: "/assets/lingming-ai-avatar-v3.png"
     };
   },
 
