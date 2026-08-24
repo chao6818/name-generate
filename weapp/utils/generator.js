@@ -1580,8 +1580,7 @@ function getReferencePrompt(config) {
     `五行 木${counts["木"]} 火${counts["火"]} 土${counts["土"]} 金${counts["金"]} 水${counts["水"]} · ${boostText}`,
     `${getHourLabel(config.birthHour)}卦象 ${gua.name}卦·${gua.symbol}（${gua.line}）`,
     `${zodiac}年宜用 ${ZODIAC_NOTES[zodiac] || ""}`,
-    getGroupedReferencePrompt(config),
-    "已融合 2025-2026 高频字与热门名字灵感"
+    getGroupedReferencePrompt(config)
   ].filter(Boolean);
   return lines.join("\n");
 }
