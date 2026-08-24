@@ -20,7 +20,7 @@
   display: flex;
   align-items: center;
   gap: 16rpx;
-  padding-right: 170rpx;
+  padding-right: 132rpx;
 }
 
 .brand-mark {
@@ -54,16 +54,16 @@
   position: absolute;
   top: 12rpx;
   right: 8rpx;
-  width: 150rpx;
-  height: 64rpx;
-  line-height: 64rpx;
+  width: 112rpx;
+  height: 52rpx;
+  line-height: 52rpx;
   margin: 0;
   padding: 0;
   border: 1rpx solid #147d7a;
-  border-radius: 12rpx;
+  border-radius: 10rpx;
   background: #eaf4f2;
   color: #0e5f5d;
-  font-size: 26rpx;
+  font-size: 24rpx;
   font-weight: 700;
   text-align: center;
 }
