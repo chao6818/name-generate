@@ -132,7 +132,6 @@
       <text class="ref-line" wx:if="{{item.refLine}}">{{item.refLine}}</text>
       <text class="meaning">{{item.meaning}}</text>
       <text class="insight">{{item.insight}}</text>
-      <text class="wuge">{{item.wuge}}</text>
       <text class="classic">{{item.classic}}</text>
       <view class="tags">
         <text wx:for="{{item.tagLabels}}" wx:for-item="tag" wx:key="*this" class="tag">{{tag}}</text>

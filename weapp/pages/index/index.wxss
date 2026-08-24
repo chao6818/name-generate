@@ -299,7 +299,6 @@
 }
 
 .insight,
-.wuge,
 .classic {
   display: block;
   margin-top: 10rpx;
@@ -308,7 +307,6 @@
   line-height: 1.5;
 }
 
-.wuge,
 .classic {
   color: #6e6e73;
 }
