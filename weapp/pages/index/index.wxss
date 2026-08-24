@@ -20,7 +20,7 @@
   display: flex;
   align-items: center;
   gap: 16rpx;
-  padding-right: 62rpx;
+  padding-right: 52rpx;
 }
 
 .brand-mark {
@@ -52,19 +52,20 @@
 
 .share-top {
   position: absolute;
-  top: 12rpx;
+  top: 14rpx;
   right: 8rpx;
-  width: 42rpx;
-  height: 44rpx;
-  line-height: 44rpx;
+  width: auto;
+  min-width: 0;
+  height: 32rpx;
+  line-height: 32rpx;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   border: 1rpx solid #147d7a;
-  border-radius: 8rpx;
+  border-radius: 6rpx;
   background: #eaf4f2;
   color: #0e5f5d;
-  font-size: 20rpx;
+  font-size: 16rpx;
   font-weight: 700;
   text-align: center;
 }
