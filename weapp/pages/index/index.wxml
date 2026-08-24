@@ -22,7 +22,7 @@
 
     <view class="field">
       <text class="label">辈分用字（选填）</text>
-      <input class="input" value="{{generationChar}}" maxlength="1" bindinput="onGenerationCharInput" placeholder="如：贤、承、书" placeholder-class="placeholder" />
+      <input class="input" value="{{generationChar}}" maxlength="8" bindinput="onGenerationCharInput" placeholder="如：贤、承、书" placeholder-class="placeholder" />
     </view>
 
     <view class="field">

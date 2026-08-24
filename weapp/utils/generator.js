@@ -114,7 +114,13 @@ const CHAR_ELEMENTS = {
   "衿": "木", "乐": "火", "颖": "木", "雅": "木", "馨": "金", "楠": "木",
   "嫣": "土", "洁": "水", "静": "金", "雪": "水", "彤": "火",
   "可": "木", "婷": "火", "佳": "木", "雨": "水", "紫": "火",
-  "奕": "木", "和": "土", "景": "木", "浩": "水", "骏": "木"
+  "奕": "木", "和": "土", "景": "木", "浩": "水", "骏": "木",
+  "贤": "木", "德": "火", "世": "金", "永": "土", "忠": "火", "孝": "水",
+  "仁": "金", "义": "木", "礼": "火", "智": "火", "信": "金", "昌": "金",
+  "荣": "木", "富": "水", "贵": "木", "邦": "水", "绍": "金", "继": "木",
+  "延": "土", "宗": "金", "鸿": "水", "福": "水", "禄": "火", "寿": "金",
+  "祥": "金", "立": "火", "正": "金", "英": "木", "杰": "木", "家": "木",
+  "克": "木"
 };
 
 const CHAR_STROKES = {
@@ -146,7 +152,45 @@ const CHAR_STROKES = {
   "梦": 11, "琪": 12, "衿": 9, "乐": 5, "颖": 13, "雅": 12, "馨": 20, "楠": 13,
   "嫣": 14, "洁": 9, "静": 14, "雪": 11, "彤": 7,
   "可": 5, "婷": 12, "佳": 8, "雨": 8, "紫": 12,
-  "奕": 9, "和": 8, "景": 12, "浩": 10, "骏": 11
+  "奕": 9, "和": 8, "景": 12, "浩": 10, "骏": 11,
+  "贤": 8, "德": 15, "世": 5, "永": 5, "忠": 8, "孝": 7, "仁": 4, "义": 3,
+  "礼": 5, "智": 12, "信": 9, "昌": 8, "荣": 9, "富": 12, "贵": 9, "邦": 6,
+  "绍": 8, "继": 10, "延": 6, "宗": 8, "鸿": 11, "福": 13, "禄": 12, "寿": 7,
+  "祥": 10, "立": 5, "正": 5, "英": 8, "杰": 8, "家": 10, "克": 7
+};
+
+const GENERATION_CHARS = {
+  "贤": { py: "xián", meaning: "贤良方正，德才兼备" },
+  "德": { py: "dé", meaning: "德行高尚，厚德载物" },
+  "世": { py: "shì", meaning: "世代传承，继往开来" },
+  "永": { py: "yǒng", meaning: "永续长存，坚定不移" },
+  "忠": { py: "zhōng", meaning: "忠诚担当，光明磊落" },
+  "孝": { py: "xiào", meaning: "孝亲仁厚，心怀感恩" },
+  "仁": { py: "rén", meaning: "仁爱宽厚，温润有度" },
+  "义": { py: "yì", meaning: "重义守信，气节端正" },
+  "礼": { py: "lǐ", meaning: "知礼守正，谦和得体" },
+  "智": { py: "zhì", meaning: "智慧通达，明辨事理" },
+  "信": { py: "xìn", meaning: "诚信立身，言行如一" },
+  "昌": { py: "chāng", meaning: "繁荣昌盛，光明兴旺" },
+  "荣": { py: "róng", meaning: "欣欣向荣，前程光明" },
+  "富": { py: "fù", meaning: "富足丰盈，安居乐业" },
+  "贵": { py: "guì", meaning: "尊贵高雅，品行端方" },
+  "邦": { py: "bāng", meaning: "安邦立业，胸怀家国" },
+  "绍": { py: "shào", meaning: "绍继传承，继往开来" },
+  "继": { py: "jì", meaning: "继往开来，绵延不息" },
+  "延": { py: "yán", meaning: "绵延长久，福泽远长" },
+  "宗": { py: "zōng", meaning: "宗德传家，根基深厚" },
+  "鸿": { py: "hóng", meaning: "鸿业远图，志向高远" },
+  "福": { py: "fú", meaning: "福泽绵长，平安顺遂" },
+  "禄": { py: "lù", meaning: "福禄安康，生活丰盈" },
+  "寿": { py: "shòu", meaning: "健康长寿，安然喜乐" },
+  "祥": { py: "xiáng", meaning: "祥和如意，吉庆有余" },
+  "立": { py: "lì", meaning: "立身立志，自立自强" },
+  "正": { py: "zhèng", meaning: "正气浩然，守正笃行" },
+  "英": { py: "yīng", meaning: "英姿飒爽，才华出众" },
+  "杰": { py: "jié", meaning: "杰出卓越，出类拔萃" },
+  "家": { py: "jiā", meaning: "家和美满，幸福安康" },
+  "克": { py: "kè", meaning: "克勤克俭，自强不息" }
 };
 
 const SURNAME_PINYIN = {
@@ -1109,7 +1153,7 @@ function rankPool(pool, rng, config) {
 function pickGivenChars(rng, usedChars, config) {
   const pool = getCandidatePool(config);
   const ranked = rankPool(pool, rng, config);
-  const generationChar = (config.generationChar || "").trim();
+  const generationChar = (config.generationChar || "").trim().slice(0, 1);
   let length = config.length === "short" ? 1 : config.length === "long" ? 2 : rng() > 0.35 ? 2 : 1;
   const chosen = [];
   let attempts = 0;
@@ -1125,11 +1169,12 @@ function pickGivenChars(rng, usedChars, config) {
   if (generationChar) {
     length = Math.max(length, 2);
     const lookup = getAllCharLookup();
+    const generationInfo = GENERATION_CHARS[generationChar];
     const known =
       lookup[generationChar] || {
         c: generationChar,
-        py: "·",
-        meaning: `辈分字「${generationChar}」`,
+        py: generationInfo ? generationInfo.py : "·",
+        meaning: generationInfo ? generationInfo.meaning : `辈分字「${generationChar}」`,
         tags: ["classic", "elegant"]
       };
     chosen.push(known);

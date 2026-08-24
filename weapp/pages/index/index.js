@@ -61,8 +61,9 @@ Page({
   },
 
   onGenerationCharInput(event) {
-    this.setData({ generationChar: event.detail.value.slice(0, 1) });
-    this.generate();
+    this.setData({ generationChar: event.detail.value });
+    clearTimeout(this._generationCharTimer);
+    this._generationCharTimer = setTimeout(() => this.generate(), 250);
   },
 
   onSurnameTap(event) {
