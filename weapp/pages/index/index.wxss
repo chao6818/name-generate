@@ -20,7 +20,7 @@
   display: flex;
   align-items: center;
   gap: 16rpx;
-  padding-right: 100rpx;
+  padding-right: 62rpx;
 }
 
 .brand-mark {
@@ -54,17 +54,17 @@
   position: absolute;
   top: 12rpx;
   right: 8rpx;
-  width: 50rpx;
-  height: 52rpx;
-  line-height: 52rpx;
+  width: 42rpx;
+  height: 44rpx;
+  line-height: 44rpx;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   border: 1rpx solid #147d7a;
-  border-radius: 10rpx;
+  border-radius: 8rpx;
   background: #eaf4f2;
   color: #0e5f5d;
-  font-size: 24rpx;
+  font-size: 20rpx;
   font-weight: 700;
   text-align: center;
 }
@@ -191,13 +191,16 @@
 
 .generate {
   height: 92rpx;
-  line-height: 92rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 16rpx;
   background: #147d7a;
   color: #ffffff;
   font-size: 30rpx;
   font-weight: 700;
   letter-spacing: 4rpx;
+  text-align: center;
   box-shadow: 0 12rpx 24rpx rgba(20, 125, 122, 0.24);
 }
 
