@@ -51,15 +51,15 @@
 
 .share-top {
   flex-shrink: 0;
-  height: 64rpx;
-  line-height: 64rpx;
+  height: 52rpx;
+  line-height: 52rpx;
   margin: 0;
-  padding: 0 24rpx;
+  padding: 0 18rpx;
   border: 2rpx solid #147d7a;
-  border-radius: 32rpx;
+  border-radius: 26rpx;
   background: #ffffff;
   color: #147d7a;
-  font-size: 24rpx;
+  font-size: 22rpx;
   font-weight: 700;
   box-shadow: 0 4rpx 12rpx rgba(20, 125, 122, 0.14);
 }
