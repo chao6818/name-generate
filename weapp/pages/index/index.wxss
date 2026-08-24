@@ -54,16 +54,18 @@
   position: absolute;
   top: 6rpx;
   right: 4rpx;
-  height: 46rpx;
-  line-height: 46rpx;
+  width: 60rpx;
+  height: 44rpx;
+  line-height: 44rpx;
   margin: 0;
-  padding: 0 12rpx;
+  padding: 0;
   border: 2rpx solid #147d7a;
-  border-radius: 23rpx;
+  border-radius: 22rpx;
   background: #ffffff;
   color: #147d7a;
   font-size: 24rpx;
   font-weight: 700;
+  text-align: center;
   box-shadow: 0 2rpx 8rpx rgba(20, 125, 122, 0.12);
 }
 
