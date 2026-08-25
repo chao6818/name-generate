@@ -1569,7 +1569,6 @@ function makeName(rng, usedChars, config) {
 function getReferencePrompt(config) {
   const zodiac = getZodiac(config.birthYear);
   const profile = getFourPillars(config);
-  const gua = getGuaByHour(config.birthHour);
   const counts = profile.counts;
   const boostText = profile.boost.length
     ? `宜补 ${profile.boost.join("、")}`
@@ -1578,7 +1577,6 @@ function getReferencePrompt(config) {
     `${config.birthDate} ${config.birthTime} · ${zodiac}年 · ${getHourLabel(config.birthHour)}`,
     `八字参考 ${profile.pillars.join(" ")}`,
     `五行 木${counts["木"]} 火${counts["火"]} 土${counts["土"]} 金${counts["金"]} 水${counts["水"]} · ${boostText}`,
-    `${getHourLabel(config.birthHour)}卦象 ${gua.name}卦·${gua.symbol}（${gua.line}）`,
     `${zodiac}年宜用 ${ZODIAC_NOTES[zodiac] || ""}`,
     getGroupedReferencePrompt(config)
   ].filter(Boolean);
