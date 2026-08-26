@@ -117,7 +117,7 @@ Page({
 
   onShareAppMessage() {
     return {
-      title: "灵名起名：输入父母姓名，参考起名",
+      title: "灵名：输入父母姓名，参考起名",
       path: "/pages/index/index",
       imageUrl: "/assets/lingming-ai-avatar-v3.png"
     };
@@ -125,7 +125,7 @@ Page({
 
   onShareTimeline() {
     return {
-      title: "灵名起名：输入父母姓名，参考起名",
+      title: "灵名：输入父母姓名，参考起名",
       imageUrl: "/assets/lingming-ai-avatar-v3.png"
     };
   },
