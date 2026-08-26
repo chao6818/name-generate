@@ -23,8 +23,8 @@ Page({
     styleOptions: [],
     length: "any",
     lengthOptions: [
-      { label: "两字", value: "short" },
       { label: "不限", value: "any" },
+      { label: "两字", value: "short" },
       { label: "三字", value: "long" }
     ],
     count: 12,
