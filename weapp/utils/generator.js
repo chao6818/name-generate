@@ -1240,6 +1240,22 @@ function getZodiac(year) {
   return ZODIAC_LIST[(((Number(year) - 4) % 12) + 12) % 12];
 }
 
+function getConstellation(month, day) {
+  const m = Number(month);
+  const d = Number(day);
+  const boundaries = [
+    [1, 20, "水瓶座"], [2, 19, "双鱼座"], [3, 21, "白羊座"], [4, 20, "金牛座"],
+    [5, 21, "双子座"], [6, 22, "巨蟹座"], [7, 23, "狮子座"], [8, 23, "处女座"],
+    [9, 23, "天秤座"], [10, 24, "天蝎座"], [11, 23, "射手座"], [12, 22, "摩羯座"]
+  ];
+  for (let i = 0; i < boundaries.length; i++) {
+    if (m === boundaries[i][0] && d >= boundaries[i][1]) {
+      return boundaries[i][2];
+    }
+  }
+  return "摩羯座";
+}
+
 function getDayPillarIndex(year, month, day) {
   const days = Math.floor(
     (Date.UTC(Number(year), Number(month) - 1, Number(day)) - Date.UTC(2024, 0, 1)) / 86400000
@@ -1521,14 +1537,15 @@ function makeName(rng, usedChars, config) {
 function getReferencePrompt(config) {
   const enabled = config.guaEnabled !== false;
   const gua = enabled ? getGuaByHour(config.birthHour) : null;
-  const zodiac = enabled ? getZodiac(config.birthYear) : "";
+  const zodiac = getZodiac(config.birthYear);
+  const constellation = getConstellation(config.birthMonth, config.birthDay);
   const profile = enabled ? getFourPillars(config) : null;
   const counts = profile ? profile.counts : null;
   const boostText = profile && profile.boost.length
     ? `宜补 ${profile.boost.join("、")}`
     : "五行均衡";
   const lines = [
-    `${config.birthDate} ${config.birthTime} · 出生纪念`,
+    `${config.birthDate} ${config.birthTime} · 属相 ${zodiac} · 星座 ${constellation}`,
     ...(enabled
       ? [
           `八字参考 ${profile.pillars.join(" ")}`,

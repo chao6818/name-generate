@@ -167,7 +167,7 @@ Page({
     this.setData({
       names,
       referencePrompt,
-      subtitle: `已推荐 ${names.length} 个名字 · ${config.birthDate} ${config.birthTime} · ${styleLabels}`
+      subtitle: `已推荐 ${names.length} 个名字 · ${styleLabels}`
     });
   },
 
