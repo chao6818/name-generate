@@ -11,34 +11,6 @@ const STYLE_OPTIONS = [
 
 const ZODIAC_LIST = ["鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"];
 
-const STEMS = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
-const BRANCHES = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
-const STEM_ELEMENTS = {
-  "甲": "木", "乙": "木", "丙": "火", "丁": "火", "戊": "土",
-  "己": "土", "庚": "金", "辛": "金", "壬": "水", "癸": "水"
-};
-const BRANCH_ELEMENTS = {
-  "子": "水", "丑": "土", "寅": "木", "卯": "木", "辰": "土", "巳": "火",
-  "午": "火", "未": "土", "申": "金", "酉": "金", "戌": "土", "亥": "水"
-};
-
-const HOUR_LABELS = [
-  "子时", "丑时", "寅时", "卯时", "辰时", "巳时",
-  "午时", "未时", "申时", "酉时", "戌时", "亥时"
-];
-
-const GUAS = [
-  { name: "乾", symbol: "天", line: "天行健，君子以自强不息", element: "金" },
-  { name: "兑", symbol: "泽", line: "丽泽兑，君子以朋友讲习", element: "金" },
-  { name: "离", symbol: "火", line: "明两作离，大人以继明照于四方", element: "火" },
-  { name: "震", symbol: "雷", line: "洊雷震，君子以恐惧修省", element: "木" },
-  { name: "巽", symbol: "风", line: "随风巽，君子以申命行事", element: "木" },
-  { name: "坎", symbol: "水", line: "水洊至，习坎，君子以常德行", element: "水" },
-  { name: "艮", symbol: "山", line: "兼山艮，君子以思不出其位", element: "土" },
-  { name: "坤", symbol: "地", line: "地势坤，君子以厚德载物", element: "土" }
-];
-
-const HOUR_GUA_INDEX = [5, 6, 6, 3, 4, 4, 2, 7, 7, 1, 0, 0];
 
 const CLASSIC_LINES = [
   { source: "《诗经》", line: "如月之恒，如日之升" },
@@ -48,10 +20,7 @@ const CLASSIC_LINES = [
   { source: "《诗经》", line: "如竹苞矣，如松茂矣" },
   { source: "《楚辞》", line: "与天地兮同寿，与日月兮齐光" },
   { source: "《楚辞》", line: "纷吾既有此内美兮，又重之以修能" },
-  { source: "《楚辞》", line: "吉日兮辰良，穆将愉兮上皇" },
   { source: "《楚辞》", line: "乐莫乐兮新相知" },
-  { source: "《周易》", line: "君子藏器于身，待时而动" },
-  { source: "《周易》", line: "厚德载物，自强不息" },
   { source: "《荀子》", line: "不积跬步，无以至千里" },
   { source: "《尚书》", line: "功崇惟志，业广惟勤" },
   { source: "《论语》", line: "志于道，据于德，依于仁，游于艺" },
@@ -64,117 +33,6 @@ const CLASSIC_LINES = [
   { source: "宋诗", line: "不畏浮云遮望眼，自缘身在最高层" },
   { source: "宋诗", line: "山重水复疑无路，柳暗花明又一村" }
 ];
-
-const ZODIAC_NOTES = {
-  "鼠": "宀、口、米、王 字根，忌午马相冲",
-  "牛": "艹、禾、米、车 字根，忌未羊相冲",
-  "虎": "山、木、王、月 字根，忌申猴相冲",
-  "兔": "艹、木、禾、月 字根，忌酉鸡相冲",
-  "龙": "日、月、雨、王 字根，忌戌狗相冲",
-  "蛇": "口、宀、木、艹 字根，忌亥猪相冲",
-  "马": "艹、木、宀、禾 字根，忌子鼠相冲",
-  "羊": "艹、木、禾、米 字根，忌丑牛相冲",
-  "猴": "山、木、禾、王 字根，忌寅虎相冲",
-  "鸡": "米、禾、豆、山 字根，忌卯兔相冲",
-  "狗": "宀、人、艹、心 字根，忌辰龙相冲",
-  "猪": "宀、水、米、禾 字根，忌巳蛇相冲"
-};
-
-const CHAR_ELEMENTS = {
-  "砚": "土", "辰": "土", "屹": "土", "屿": "土", "泽": "水", "煜": "火",
-  "川": "水", "霖": "水", "昊": "火", "修": "金", "博": "水", "弈": "木",
-  "昭": "火", "恒": "土", "峻": "土", "谦": "木", "澈": "水", "予": "木",
-  "钧": "金", "书": "金", "聿": "木", "森": "木", "澜": "水", "彧": "火",
-  "南": "火", "卓": "火", "望": "水", "清": "水", "航": "水", "启": "木",
-  "铭": "金", "璟": "火", "淮": "水", "桐": "木", "晟": "火", "尧": "土",
-  "岳": "土", "朗": "火", "靖": "金", "昂": "火", "冠": "木", "峥": "土",
-  "元": "木", "弘": "水", "尚": "金", "蔚": "木", "邈": "水", "璞": "土",
-  "铮": "金", "琛": "金", "稷": "木", "乾": "金", "彻": "火", "翼": "木",
-  "衡": "土", "羲": "金", "若": "木", "兮": "木", "沐": "水", "涵": "水",
-  "汐": "水", "舒": "金", "萱": "木", "茉": "木", "芮": "木", "禾": "木",
-  "穗": "木", "安": "土", "宇": "土", "宸": "金", "林": "木", "柏": "木",
-  "诺": "火", "一": "土", "佑": "土", "昕": "火", "昱": "火",
-  "晚": "水", "棠": "木", "初": "金", "宁": "火", "语": "木", "栀": "木",
-  "然": "金", "芷": "木", "吟": "金", "晴": "火", "知": "火", "夏": "火",
-  "琳": "木", "姝": "金", "瑾": "金", "珂": "土", "星": "火", "悦": "金",
-  "澄": "水", "宛": "土", "亦": "土", "嘉": "木", "霏": "水", "芝": "木",
-  "玥": "金", "婠": "土", "婉": "土", "娉": "水", "菡": "木", "菁": "木",
-  "芙": "木", "霓": "水", "晗": "火", "蘅": "木", "恬": "火", "莞": "木",
-  "婳": "土", "妤": "土", "芃": "木", "茗": "木", "槿": "木", "珞": "火",
-  "璇": "火", "荞": "木", "蕙": "木", "芸": "木", "荻": "木", "娴": "土",
-  "锦": "金", "程": "火", "钰": "金", "子": "水", "泓": "水", "楷": "木",
-  "熙": "水", "赫": "火", "承": "金", "睿": "金", "轩": "土", "逸": "土",
-  "帆": "水", "瑞": "金", "烨": "火", "皓": "木", "彬": "木", "越": "土",
-  "哲": "火", "源": "水", "阳": "火", "文": "水", "俊": "火", "毅": "木",
-  "成": "金", "珩": "金", "墨": "土", "昀": "火", "鹤": "水", "树": "木",
-  "之": "火", "少": "金", "商": "金", "野": "土", "微": "水", "行": "水",
-  "慎": "金", "华": "水", "佩": "水", "江": "水", "离": "火", "梓": "木",
-  "懿": "土", "城": "土", "驰": "火", "凡": "水", "曦": "火", "明": "火",
-  "志": "火", "远": "土", "风": "木", "舟": "金", "山": "土", "言": "木",
-  "瑶": "火", "妍": "水", "诗": "金", "欣": "木", "怡": "土", "思": "金",
-  "念": "火", "意": "土", "以": "土", "月": "水", "洛": "水", "璃": "土",
-  "芊": "木", "云": "水", "乔": "木", "欢": "水", "梦": "木", "琪": "木",
-  "衿": "木", "乐": "火", "颖": "木", "雅": "木", "馨": "金", "楠": "木",
-  "嫣": "土", "洁": "水", "静": "金", "雪": "水", "彤": "火",
-  "可": "木", "婷": "火", "佳": "木", "雨": "水", "紫": "火",
-  "奕": "木", "和": "土", "景": "木", "浩": "水", "骏": "木",
-  "贤": "木", "德": "火", "世": "金", "永": "土", "忠": "火", "孝": "水",
-  "仁": "金", "义": "木", "礼": "火", "智": "火", "信": "金", "昌": "金",
-  "荣": "木", "富": "水", "贵": "木", "邦": "水", "绍": "金", "继": "木",
-  "延": "土", "宗": "金", "鸿": "水", "福": "水", "禄": "火", "寿": "金",
-  "祥": "金", "立": "火", "正": "金", "英": "木", "杰": "木", "家": "木",
-  "克": "木",
-  "宥": "土", "柠": "木", "伊": "土", "艺": "木", "浠": "水", "珺": "金",
-  "依": "土", "苡": "木", "沫": "水", "心": "火", "品": "金", "菲": "木",
-  "咏": "土", "恩": "土", "硕": "土", "廷": "火", "允": "土", "怀": "水",
-  "希": "水", "润": "水", "青": "金", "潼": "水", "扶": "木", "苏": "木",
-  "鹿": "火", "鸣": "水", "晨": "金", "慕": "水", "天": "火", "瀚": "水",
-  "禹": "土", "圣": "土", "夕": "金", "彦": "木", "康": "木", "溪": "水",
-  "见": "木"
-};
-
-const CHAR_STROKES = {
-  "砚": 9, "辰": 7, "屹": 6, "屿": 6, "泽": 8, "煜": 13, "川": 3, "霖": 16,
-  "昊": 8, "修": 9, "博": 12, "弈": 9, "昭": 9, "恒": 9, "峻": 10, "谦": 12,
-  "澈": 15, "予": 4, "钧": 9, "书": 4, "聿": 6, "森": 12, "澜": 15, "彧": 10,
-  "南": 9, "卓": 8, "望": 11, "清": 11, "航": 10, "启": 7, "铭": 11, "璟": 16,
-  "淮": 11, "桐": 10, "晟": 10, "尧": 6, "岳": 8, "朗": 10, "靖": 13, "昂": 8,
-  "冠": 9, "峥": 9, "元": 4, "弘": 5, "尚": 8, "蔚": 14, "邈": 17, "璞": 16,
-  "铮": 11, "琛": 12, "稷": 15, "乾": 11, "彻": 7, "翼": 17, "衡": 16, "羲": 16,
-  "若": 8, "兮": 4, "沐": 7, "涵": 11, "汐": 6, "舒": 12, "萱": 12, "茉": 8,
-  "芮": 7, "禾": 5, "穗": 17, "安": 6, "宇": 6, "宸": 10, "林": 8, "柏": 9,
-  "诺": 10, "一": 1, "佑": 7, "昕": 8, "昱": 9,
-  "晚": 11, "棠": 12, "初": 7, "宁": 5, "语": 9, "栀": 10, "然": 12, "芷": 7,
-  "吟": 7, "晴": 12, "知": 8, "夏": 10, "琳": 12, "姝": 9, "瑾": 15, "珂": 9,
-  "星": 9, "悦": 10, "澄": 15, "宛": 8, "亦": 6, "嘉": 14, "霏": 16, "芝": 6,
-  "玥": 8, "婠": 11, "婉": 11, "娉": 10, "菡": 11, "菁": 11, "芙": 7, "霓": 16,
-  "晗": 11, "蘅": 16, "恬": 9, "莞": 10, "婳": 12, "妤": 7, "芃": 6, "茗": 9,
-  "槿": 15, "珞": 10, "璇": 15, "荞": 9, "蕙": 15, "芸": 7, "荻": 10, "娴": 10,
-  "锦": 13, "程": 12, "钰": 10, "子": 3, "泓": 8, "楷": 13, "熙": 14, "赫": 14,
-  "承": 8, "睿": 14, "轩": 7, "逸": 11, "帆": 6, "瑞": 13, "烨": 10, "皓": 12,
-  "彬": 11, "越": 12, "哲": 10, "源": 13, "阳": 6, "文": 4, "俊": 9, "毅": 15,
-  "成": 6, "珩": 10, "墨": 15, "昀": 8, "鹤": 15, "树": 9, "之": 3, "少": 4,
-  "商": 11, "野": 11, "微": 13, "行": 6, "慎": 13, "华": 6, "佩": 8, "江": 6,
-  "离": 10, "梓": 11, "懿": 22, "城": 9, "驰": 6, "凡": 3, "曦": 20, "明": 8,
-  "志": 7, "远": 7, "风": 4, "舟": 6, "山": 3, "言": 7,
-  "瑶": 14, "妍": 7, "诗": 8, "欣": 8, "怡": 8, "思": 9, "念": 8, "意": 13,
-  "以": 4, "月": 4, "洛": 9, "璃": 14, "芊": 6, "云": 4, "乔": 6, "欢": 6,
-  "梦": 11, "琪": 12, "衿": 9, "乐": 5, "颖": 13, "雅": 12, "馨": 20, "楠": 13,
-  "嫣": 14, "洁": 9, "静": 14, "雪": 11, "彤": 7,
-  "可": 5, "婷": 12, "佳": 8, "雨": 8, "紫": 12,
-  "奕": 9, "和": 8, "景": 12, "浩": 10, "骏": 11,
-  "贤": 8, "德": 15, "世": 5, "永": 5, "忠": 8, "孝": 7, "仁": 4, "义": 3,
-  "礼": 5, "智": 12, "信": 9, "昌": 8, "荣": 9, "富": 12, "贵": 9, "邦": 6,
-  "绍": 8, "继": 10, "延": 6, "宗": 8, "鸿": 11, "福": 13, "禄": 12, "寿": 7,
-  "祥": 10, "立": 5, "正": 5, "英": 8, "杰": 8, "家": 10, "克": 7,
-  "宥": 9, "柠": 9, "伊": 6, "艺": 4, "浠": 10, "珺": 11,
-  "依": 8, "苡": 8, "沫": 8, "心": 4, "品": 9, "菲": 11,
-  "咏": 8, "恩": 10, "硕": 11, "廷": 6, "允": 4, "怀": 7,
-  "希": 7, "润": 10, "青": 8, "潼": 15, "扶": 7, "苏": 7,
-  "鹿": 11, "鸣": 8, "晨": 11, "慕": 14, "天": 4, "瀚": 19,
-  "禹": 9, "圣": 5, "夕": 3, "彦": 9, "康": 11, "溪": 13,
-  "见": 4
-};
 
 const GENERATION_CHARS = {
   "贤": { py: "xián", meaning: "贤良方正，德才兼备" },
@@ -1224,18 +1082,6 @@ function getGroupedReferencePrompt(config) {
     .join("；");
 }
 
-function getHourIndex(hour) {
-  return Math.floor((((Number(hour) || 0) + 1) % 24) / 2);
-}
-
-function getHourLabel(hour) {
-  return HOUR_LABELS[getHourIndex(hour)];
-}
-
-function getGuaByHour(hour) {
-  return GUAS[HOUR_GUA_INDEX[getHourIndex(hour)]];
-}
-
 function getZodiac(year) {
   return ZODIAC_LIST[(((Number(year) - 4) % 12) + 12) % 12];
 }
@@ -1248,64 +1094,17 @@ function getConstellation(month, day) {
     [5, 21, "双子座"], [6, 22, "巨蟹座"], [7, 23, "狮子座"], [8, 23, "处女座"],
     [9, 23, "天秤座"], [10, 24, "天蝎座"], [11, 23, "射手座"], [12, 22, "摩羯座"]
   ];
+  let result = boundaries[11][2];
   for (let i = 0; i < boundaries.length; i++) {
-    if (m === boundaries[i][0] && d >= boundaries[i][1]) {
-      return boundaries[i][2];
+    const bm = boundaries[i][0];
+    const bd = boundaries[i][1];
+    if (m < bm || (m === bm && d < bd)) {
+      result = i === 0 ? boundaries[11][2] : boundaries[i - 1][2];
+      break;
     }
+    result = boundaries[i][2];
   }
-  return "摩羯座";
-}
-
-function getDayPillarIndex(year, month, day) {
-  const days = Math.floor(
-    (Date.UTC(Number(year), Number(month) - 1, Number(day)) - Date.UTC(2024, 0, 1)) / 86400000
-  );
-  return ((days % 60) + 60) % 60;
-}
-
-function getFourPillars(config) {
-  const year = Number(config.birthYear);
-  const month = Number(config.birthMonth);
-  const day = Number(config.birthDay);
-  const hour = Number(config.birthHour);
-  const yearIdx = (((year - 4) % 60) + 60) % 60;
-  const dayIdx = getDayPillarIndex(year, month, day);
-  const yearStem = STEMS[yearIdx % 10];
-  const yearBranch = BRANCHES[yearIdx % 12];
-  const monthBranchIdx = ((month - 2 + 12) % 12);
-  const monthStem = STEMS[(((yearIdx % 10) % 5) * 2 + monthBranchIdx + 2) % 10];
-  const monthBranch = BRANCHES[(monthBranchIdx + 2) % 12];
-  const dayStem = STEMS[dayIdx % 10];
-  const dayBranch = BRANCHES[dayIdx % 12];
-  const hourBranchIdx = getHourIndex(hour);
-  const hourStem = STEMS[(((dayIdx % 10) % 5) * 2 + hourBranchIdx) % 10];
-  const hourBranch = BRANCHES[hourBranchIdx];
-  const pillars = [
-    yearStem + yearBranch,
-    monthStem + monthBranch,
-    dayStem + dayBranch,
-    hourStem + hourBranch
-  ];
-  const counts = { 木: 0, 火: 0, 土: 0, 金: 0, 水: 0 };
-  pillars.join("").split("").forEach((char) => {
-    const element = STEM_ELEMENTS[char] || BRANCH_ELEMENTS[char];
-    if (element) counts[element]++;
-  });
-  const values = Object.keys(counts).map((key) => [key, counts[key]]);
-  const min = Math.min(...values.map((entry) => entry[1]));
-  const missing = values.filter((entry) => entry[1] === 0).map((entry) => entry[0]);
-  const weak = values.filter((entry) => entry[1] === min && entry[1] > 0).map((entry) => entry[0]);
-  return {
-    pillars,
-    counts,
-    missing,
-    weak,
-    boost: missing.length ? missing : weak
-  };
-}
-
-function getElementOfChar(char) {
-  return CHAR_ELEMENTS[char] || "·";
+  return result;
 }
 
 function getSeason(month) {
@@ -1515,7 +1314,6 @@ function makeName(rng, usedChars, config) {
   const surname = getSurname(config);
   const given = pickGivenChars(rng, usedChars, config);
   const refLine = getGroupedReferencePrompt(config);
-  const gua = config.guaEnabled !== false ? getGuaByHour(config.birthHour) : null;
   const classic = pick(CLASSIC_LINES, rng);
   return {
     text: (surname ? surname.s : "") + given.map((char) => char.c).join(""),
@@ -1524,37 +1322,18 @@ function makeName(rng, usedChars, config) {
     meaning: given.map((char) => char.meaning).join(" · "),
     tags: [...new Set(given.map((char) => char.tags).reduce((all, tags) => all.concat(tags), []))].slice(0, 2),
     refLine,
-    insight:
-      `用字意象 ${given.map((char) => char.meaning.split("，")[0]).join(" · ")}` +
-      (config.guaEnabled !== false
-        ? `｜五行 ${given.map((char) => getElementOfChar(char.c)).join("·")}`
-        : "") +
-      (gua ? `｜${gua.name}卦·${gua.symbol}` : ""),
+    insight: `用字意象 ${given.map((char) => char.meaning.split("，")[0]).join(" · ")}`,
     classic: `用典 ${classic.source}「${classic.line}」`
   };
 }
 
 function getReferencePrompt(config) {
-  const enabled = config.guaEnabled !== false;
-  const gua = enabled ? getGuaByHour(config.birthHour) : null;
   const zodiac = getZodiac(config.birthYear);
   const constellation = getConstellation(config.birthMonth, config.birthDay);
-  const profile = enabled ? getFourPillars(config) : null;
-  const counts = profile ? profile.counts : null;
-  const boostText = profile && profile.boost.length
-    ? `宜补 ${profile.boost.join("、")}`
-    : "五行均衡";
+  const parentRef = getGroupedReferencePrompt(config);
   const lines = [
     `${config.birthDate} ${config.birthTime} · 属相 ${zodiac} · 星座 ${constellation}`,
-    ...(enabled
-      ? [
-          `八字参考 ${profile.pillars.join(" ")}`,
-          `五行 木${counts["木"]} 火${counts["火"]} 土${counts["土"]} 金${counts["金"]} 水${counts["水"]} · ${boostText}`,
-          `${zodiac}年宜用 ${ZODIAC_NOTES[zodiac] || ""}`,
-          `${getHourLabel(config.birthHour)}卦象 ${gua.name}卦·${gua.symbol}（${gua.line}）`
-        ]
-      : []),
-    getGroupedReferencePrompt(config)
+    parentRef
   ].filter(Boolean);
   return lines.join("\n");
 }

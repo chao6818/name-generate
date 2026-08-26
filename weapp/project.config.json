@@ -1,7 +1,8 @@
 {
-  "description": "灵名AI起名工具",
+  "description": "灵名起名工具",
   "packOptions": {
-    "ignore": []
+    "ignore": [],
+    "include": []
   },
   "setting": {
     "urlCheck": false,
@@ -9,11 +10,31 @@
     "enhance": true,
     "postcss": true,
     "minified": true,
-    "coverView": true
+    "coverView": true,
+    "compileWorklet": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
   },
   "compileType": "miniprogram",
   "libVersion": "3.0.0",
-  "appid": "touristappid",
-  "projectname": "lingming-ai-weapp",
-  "condition": {}
+  "appid": "wx815b7e40c017eae4",
+  "projectname": "lingming-weapp",
+  "condition": {},
+  "simulatorPluginLibVersion": {},
+  "editorSetting": {}
 }

@@ -1,6 +1,6 @@
 <view class="page">
   <view class="header">
-    <image class="brand-mark" src="/assets/lingming-ai-avatar-v3.png" mode="aspectFill"></image>
+    <image class="brand-mark" src="/assets/lingming-logo.png" mode="aspectFill"></image>
     <view class="brand-text">
       <text class="title">灵名</text>
       <text class="subtitle">父母姓名参考起名</text>
@@ -81,22 +81,6 @@
           data-id="{{item.id}}"
           bindtap="onStyleTap"
         >{{item.label}}</view>
-      </view>
-    </view>
-
-    <view class="field">
-      <text class="label">八卦易经参考</text>
-      <view class="segmented">
-        <view
-          class="segment {{guaEnabled ? 'active' : ''}}"
-          data-value="true"
-          bindtap="onGuaTap"
-        >开启</view>
-        <view
-          class="segment {{!guaEnabled ? 'active' : ''}}"
-          data-value="false"
-          bindtap="onGuaTap"
-        >关闭</view>
       </view>
     </view>
 
