@@ -117,16 +117,14 @@ Page({
 
   onShareAppMessage() {
     return {
-      title: "灵名AI：输入父母姓名，生成有寓意的名字",
-      path: "/pages/index/index",
-      imageUrl: "/assets/lingming-ai-avatar-v3.png"
+      title: "灵名起名：输入父母姓名，参考起名",
+      path: "/pages/index/index"
     };
   },
 
   onShareTimeline() {
     return {
-      title: "灵名AI：输入父母姓名，生成有寓意的名字",
-      imageUrl: "/assets/lingming-ai-avatar-v3.png"
+      title: "灵名起名：输入父母姓名，参考起名"
     };
   },
 
@@ -159,7 +157,7 @@ Page({
     this.setData({
       names,
       referencePrompt,
-      subtitle: `已生成 ${names.length} 个名字 · ${config.birthDate} ${config.birthTime} · ${styleLabels}`
+      subtitle: `已推荐 ${names.length} 个名字 · ${config.birthDate} ${config.birthTime} · ${styleLabels}`
     });
   },
 

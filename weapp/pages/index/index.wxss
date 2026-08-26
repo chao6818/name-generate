@@ -18,6 +18,13 @@
   height: 96rpx;
   border-radius: 22rpx;
   box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 44rpx;
+  font-weight: 800;
+  background: linear-gradient(135deg, #007AFF, #30B0C7);
 }
 
 .brand-text {
@@ -299,7 +306,6 @@
 }
 
 .insight,
-.wuge,
 .classic {
   display: block;
   margin-top: 10rpx;
@@ -308,7 +314,6 @@
   line-height: 1.5;
 }
 
-.wuge,
 .classic {
   color: #6e6e73;
 }

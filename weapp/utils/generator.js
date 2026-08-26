@@ -9,36 +9,6 @@ const STYLE_OPTIONS = [
   { id: "warm", label: "温暖" }
 ];
 
-const ZODIAC_LIST = ["鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"];
-
-const STEMS = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
-const BRANCHES = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
-const STEM_ELEMENTS = {
-  "甲": "木", "乙": "木", "丙": "火", "丁": "火", "戊": "土",
-  "己": "土", "庚": "金", "辛": "金", "壬": "水", "癸": "水"
-};
-const BRANCH_ELEMENTS = {
-  "子": "水", "丑": "土", "寅": "木", "卯": "木", "辰": "土", "巳": "火",
-  "午": "火", "未": "土", "申": "金", "酉": "金", "戌": "土", "亥": "水"
-};
-const HOUR_LABELS = [
-  "子时", "丑时", "寅时", "卯时", "辰时", "巳时",
-  "午时", "未时", "申时", "酉时", "戌时", "亥时"
-];
-
-const GUAS = [
-  { name: "乾", symbol: "天", line: "天行健，君子以自强不息", element: "金" },
-  { name: "兑", symbol: "泽", line: "丽泽兑，君子以朋友讲习", element: "金" },
-  { name: "离", symbol: "火", line: "明两作离，大人以继明照于四方", element: "火" },
-  { name: "震", symbol: "雷", line: "洊雷震，君子以恐惧修省", element: "木" },
-  { name: "巽", symbol: "风", line: "随风巽，君子以申命行事", element: "木" },
-  { name: "坎", symbol: "水", line: "水洊至，习坎，君子以常德行", element: "水" },
-  { name: "艮", symbol: "山", line: "兼山艮，君子以思不出其位", element: "土" },
-  { name: "坤", symbol: "地", line: "地势坤，君子以厚德载物", element: "土" }
-];
-
-const HOUR_GUA_INDEX = [5, 6, 6, 3, 4, 4, 2, 7, 7, 1, 0, 0];
-
 const CLASSIC_LINES = [
   { source: "《诗经》", line: "如月之恒，如日之升" },
   { source: "《诗经》", line: "有匪君子，如切如磋" },
@@ -49,8 +19,8 @@ const CLASSIC_LINES = [
   { source: "《楚辞》", line: "纷吾既有此内美兮，又重之以修能" },
   { source: "《楚辞》", line: "吉日兮辰良，穆将愉兮上皇" },
   { source: "《楚辞》", line: "乐莫乐兮新相知" },
-  { source: "《周易》", line: "君子藏器于身，待时而动" },
-  { source: "《周易》", line: "厚德载物，自强不息" },
+  { source: "《荀子》", line: "不积跬步，无以至千里" },
+  { source: "《尚书》", line: "功崇惟志，业广惟勤" },
   { source: "《论语》", line: "志于道，据于德，依于仁，游于艺" },
   { source: "《大学》", line: "苟日新，日日新，又日新" },
   { source: "唐诗", line: "长风破浪会有时，直挂云帆济沧海" },
@@ -61,21 +31,6 @@ const CLASSIC_LINES = [
   { source: "宋诗", line: "不畏浮云遮望眼，自缘身在最高层" },
   { source: "宋诗", line: "山重水复疑无路，柳暗花明又一村" }
 ];
-
-const ZODIAC_NOTES = {
-  "鼠": "宀、口、米、王 字根，忌午马相冲",
-  "牛": "艹、禾、米、车 字根，忌未羊相冲",
-  "虎": "山、木、王、月 字根，忌申猴相冲",
-  "兔": "艹、木、禾、月 字根，忌酉鸡相冲",
-  "龙": "日、月、雨、王 字根，忌戌狗相冲",
-  "蛇": "口、宀、木、艹 字根，忌亥猪相冲",
-  "马": "艹、木、宀、禾 字根，忌子鼠相冲",
-  "羊": "艹、木、禾、米 字根，忌丑牛相冲",
-  "猴": "山、木、禾、王 字根，忌寅虎相冲",
-  "鸡": "米、禾、豆、山 字根，忌卯兔相冲",
-  "狗": "宀、人、艹、心 字根，忌辰龙相冲",
-  "猪": "宀、水、米、禾 字根，忌巳蛇相冲"
-};
 
 const CHAR_ELEMENTS = {
   "砚": "土", "辰": "土", "屹": "土", "屿": "土", "泽": "水", "煜": "火",
@@ -320,9 +275,6 @@ const SPECIAL_CHAR_CATEGORIES = {
   "若": ["guofeng"], "兮": ["guofeng"], "璟": ["guofeng"], "砚": ["guofeng"],
   "沐": ["guofeng"], "涵": ["guofeng"], "清": ["guofeng"], "汐": ["guofeng"],
   "予": ["guofeng"], "舒": ["guofeng"],
-  "萱": ["zodiac-马"], "茉": ["zodiac-马"], "芮": ["zodiac-马"], "禾": ["zodiac-马"],
-  "穗": ["zodiac-马"], "安": ["zodiac-马"], "宇": ["zodiac-马"], "宸": ["zodiac-马"],
-  "林": ["zodiac-马"], "柏": ["zodiac-马"],
   "泽": ["unisex"], "霖": ["unisex"], "诺": ["unisex"], "一": ["unisex"],
   "辰": ["unisex"], "佑": ["unisex"], "昕": ["unisex"], "昱": ["unisex"]
 };
@@ -1224,118 +1176,6 @@ function getGroupedReferencePrompt(config) {
     .join("；");
 }
 
-function getZodiac(year) {
-  return ZODIAC_LIST[(((Number(year) - 4) % 12) + 12) % 12];
-}
-
-function getHourIndex(hour) {
-  return Math.floor((((Number(hour) || 0) + 1) % 24) / 2);
-}
-
-function getHourLabel(hour) {
-  return HOUR_LABELS[getHourIndex(hour)];
-}
-
-function getDayPillarIndex(year, month, day) {
-  const days = Math.floor(
-    (Date.UTC(Number(year), Number(month) - 1, Number(day)) - Date.UTC(2024, 0, 1)) / 86400000
-  );
-  return ((days % 60) + 60) % 60;
-}
-
-function getFourPillars(config) {
-  const year = Number(config.birthYear);
-  const month = Number(config.birthMonth);
-  const day = Number(config.birthDay);
-  const hour = Number(config.birthHour);
-  const yearIdx = (((year - 4) % 60) + 60) % 60;
-  const dayIdx = getDayPillarIndex(year, month, day);
-  const yearStem = STEMS[yearIdx % 10];
-  const yearBranch = BRANCHES[yearIdx % 12];
-  const monthBranchIdx = ((month - 2 + 12) % 12);
-  const monthStem = STEMS[(((yearIdx % 10) % 5) * 2 + monthBranchIdx + 2) % 10];
-  const monthBranch = BRANCHES[(monthBranchIdx + 2) % 12];
-  const dayStem = STEMS[dayIdx % 10];
-  const dayBranch = BRANCHES[dayIdx % 12];
-  const hourBranchIdx = getHourIndex(hour);
-  const hourStem = STEMS[(((dayIdx % 10) % 5) * 2 + hourBranchIdx) % 10];
-  const hourBranch = BRANCHES[hourBranchIdx];
-  const pillars = [
-    yearStem + yearBranch,
-    monthStem + monthBranch,
-    dayStem + dayBranch,
-    hourStem + hourBranch
-  ];
-  const counts = { 木: 0, 火: 0, 土: 0, 金: 0, 水: 0 };
-  pillars.join("").split("").forEach((char) => {
-    const element = STEM_ELEMENTS[char] || BRANCH_ELEMENTS[char];
-    if (element) counts[element]++;
-  });
-  const values = Object.keys(counts).map((key) => [key, counts[key]]);
-  const min = Math.min(...values.map((entry) => entry[1]));
-  const missing = values.filter((entry) => entry[1] === 0).map((entry) => entry[0]);
-  const weak = values.filter((entry) => entry[1] === min && entry[1] > 0).map((entry) => entry[0]);
-  return {
-    pillars,
-    counts,
-    missing,
-    weak,
-    boost: missing.length ? missing : weak
-  };
-}
-
-function getGuaByHour(hour) {
-  return GUAS[HOUR_GUA_INDEX[getHourIndex(hour)]];
-}
-
-function strokeOf(char) {
-  return CHAR_STROKES[char] || 8;
-}
-
-function getElementOfChar(char) {
-  return CHAR_ELEMENTS[char] || "·";
-}
-
-function getNumberElement(number) {
-  const mod = number % 10;
-  if (mod === 1 || mod === 2) return "木";
-  if (mod === 3 || mod === 4) return "火";
-  if (mod === 5 || mod === 6) return "土";
-  if (mod === 7 || mod === 8) return "金";
-  return "水";
-}
-
-const LUCKY_STROKE_NUMBERS = new Set([
-  1, 3, 5, 6, 7, 8, 11, 13, 15, 16, 17, 18, 21, 23, 24, 25, 29, 31, 32, 33,
-  35, 37, 39, 41, 45, 47, 48, 52, 57, 61, 63, 65, 67, 68, 81
-]);
-
-function getWuGe(surname, given) {
-  if (!surname) return null;
-  const surnameStrokes = surname.s.split("").map(strokeOf);
-  const givenStrokes = given.map((item) => strokeOf(item.c));
-  const surnameSum = surnameStrokes.reduce((sum, value) => sum + value, 0);
-  const givenSum = givenStrokes.reduce((sum, value) => sum + value, 0);
-  const total = surnameSum + givenSum;
-  const tian = surnameStrokes.length > 1 ? surnameSum : surnameStrokes[0] + 1;
-  const ren = surnameStrokes[surnameStrokes.length - 1] + givenStrokes[0];
-  const di = givenStrokes.length > 1 ? givenSum : givenStrokes[0] + 1;
-  const wai = total - ren + 1;
-  const sanCai = `${getNumberElement(tian)}${getNumberElement(ren)}${getNumberElement(di)}`;
-  const luckyCount = [tian, ren, di, wai, total].filter((value) => LUCKY_STROKE_NUMBERS.has(value)).length;
-  const verdict = luckyCount >= 4 ? "数理吉" : luckyCount >= 2 ? "数理参考" : "数理一般";
-  return {
-    tian,
-    ren,
-    di,
-    wai,
-    total,
-    sanCai,
-    verdict,
-    text: `五格 人格${ren} · 总格${total} · 三才${sanCai} · ${verdict}`
-  };
-}
-
 function getSeason(month) {
   const value = Number(month);
   if (value >= 3 && value <= 5) return "spring";
@@ -1435,10 +1275,7 @@ function rankPool(pool, rng, config) {
       if (!refTags.includes(tag)) refTags.push(tag);
     });
   });
-  const zodiacKey = `zodiac-${getZodiac(config.birthYear)}`;
   const seasonChars = SEASON_BONUS_CHARS[getSeason(config.birthMonth)] || [];
-  const profile = getFourPillars(config);
-  const gua = getGuaByHour(config.birthHour);
   return pool
     .map((item) => {
       let overlap = 0;
@@ -1452,13 +1289,9 @@ function rankPool(pool, rng, config) {
         );
       }
       const categories = SPECIAL_CHAR_CATEGORIES[item.c] || [];
-      const element = getElementOfChar(item.c);
       const categoryBonus =
-        (categories.includes(zodiacKey) ? 4 : 0) +
         (seasonChars.includes(item.c) ? 3 : 0) +
-        (categories.includes("unisex") ? 1 : 0) +
-        (profile.boost.includes(element) ? 5 : 0) +
-        (element === gua.element ? 2 : 0);
+        (categories.includes("unisex") ? 1 : 0);
       return {
         item,
         score: overlap * 2 + (matchesReference ? 2 : 0) + categoryBonus + rng() * 6
@@ -1550,8 +1383,6 @@ function makeName(rng, usedChars, config) {
   const surname = getSurname(config);
   const given = pickGivenChars(rng, usedChars, config);
   const refLine = getGroupedReferencePrompt(config);
-  const gua = getGuaByHour(config.birthHour);
-  const wuge = getWuGe(surname, given);
   const classic = pick(CLASSIC_LINES, rng);
   return {
     text: (surname ? surname.s : "") + given.map((char) => char.c).join(""),
@@ -1560,24 +1391,14 @@ function makeName(rng, usedChars, config) {
     meaning: given.map((char) => char.meaning).join(" · "),
     tags: [...new Set(given.map((char) => char.tags).reduce((all, tags) => all.concat(tags), []))].slice(0, 2),
     refLine,
-    insight: `五行 ${given.map((char) => getElementOfChar(char.c)).join("·")}｜${gua.name}卦·${gua.symbol}`,
-    wuge: wuge ? wuge.text : "五格 未选姓氏",
+    insight: `用字意象 ${given.map((char) => char.meaning.split("，")[0]).join(" · ")}`,
     classic: `用典 ${classic.source}「${classic.line}」`
   };
 }
 
 function getReferencePrompt(config) {
-  const zodiac = getZodiac(config.birthYear);
-  const profile = getFourPillars(config);
-  const counts = profile.counts;
-  const boostText = profile.boost.length
-    ? `宜补 ${profile.boost.join("、")}`
-    : "五行均衡";
   const lines = [
-    `${config.birthDate} ${config.birthTime} · ${zodiac}年 · ${getHourLabel(config.birthHour)}`,
-    `八字参考 ${profile.pillars.join(" ")}`,
-    `五行 木${counts["木"]} 火${counts["火"]} 土${counts["土"]} 金${counts["金"]} 水${counts["水"]} · ${boostText}`,
-    `${zodiac}年宜用 ${ZODIAC_NOTES[zodiac] || ""}`,
+    `${config.birthDate} ${config.birthTime} · 出生纪念`,
     getGroupedReferencePrompt(config)
   ].filter(Boolean);
   return lines.join("\n");
