@@ -1,6 +1,6 @@
 <view class="page">
   <view class="header">
-    <view class="brand-mark">灵</view>
+    <image class="brand-mark" src="/assets/lingming-ai-avatar-v3.png" mode="aspectFill"></image>
     <view class="brand-text">
       <text class="title">灵名起名</text>
       <text class="subtitle">父母姓名参考起名</text>
