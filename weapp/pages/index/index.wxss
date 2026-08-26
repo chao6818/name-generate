@@ -120,13 +120,14 @@
 }
 
 .chip-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 14rpx;
 }
 
 .chip {
-  width: calc(25% - 11rpx);
+  box-sizing: border-box;
+  width: 100%;
   padding: 16rpx 4rpx;
   border: 1rpx solid #e5e5ea;
   border-radius: 14rpx;
