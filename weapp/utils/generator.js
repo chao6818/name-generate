@@ -9,6 +9,19 @@ const STYLE_OPTIONS = [
   { id: "warm", label: "温暖" }
 ];
 
+const ZODIAC_LIST = ["鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"];
+
+const STEMS = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+const BRANCHES = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+const STEM_ELEMENTS = {
+  "甲": "木", "乙": "木", "丙": "火", "丁": "火", "戊": "土",
+  "己": "土", "庚": "金", "辛": "金", "壬": "水", "癸": "水"
+};
+const BRANCH_ELEMENTS = {
+  "子": "水", "丑": "土", "寅": "木", "卯": "木", "辰": "土", "巳": "火",
+  "午": "火", "未": "土", "申": "金", "酉": "金", "戌": "土", "亥": "水"
+};
+
 const HOUR_LABELS = [
   "子时", "丑时", "寅时", "卯时", "辰时", "巳时",
   "午时", "未时", "申时", "酉时", "戌时", "亥时"
@@ -51,6 +64,21 @@ const CLASSIC_LINES = [
   { source: "宋诗", line: "不畏浮云遮望眼，自缘身在最高层" },
   { source: "宋诗", line: "山重水复疑无路，柳暗花明又一村" }
 ];
+
+const ZODIAC_NOTES = {
+  "鼠": "宀、口、米、王 字根，忌午马相冲",
+  "牛": "艹、禾、米、车 字根，忌未羊相冲",
+  "虎": "山、木、王、月 字根，忌申猴相冲",
+  "兔": "艹、木、禾、月 字根，忌酉鸡相冲",
+  "龙": "日、月、雨、王 字根，忌戌狗相冲",
+  "蛇": "口、宀、木、艹 字根，忌亥猪相冲",
+  "马": "艹、木、宀、禾 字根，忌子鼠相冲",
+  "羊": "艹、木、禾、米 字根，忌丑牛相冲",
+  "猴": "山、木、禾、王 字根，忌寅虎相冲",
+  "鸡": "米、禾、豆、山 字根，忌卯兔相冲",
+  "狗": "宀、人、艹、心 字根，忌辰龙相冲",
+  "猪": "宀、水、米、禾 字根，忌巳蛇相冲"
+};
 
 const CHAR_ELEMENTS = {
   "砚": "土", "辰": "土", "屹": "土", "屿": "土", "泽": "水", "煜": "火",
@@ -1208,6 +1236,62 @@ function getGuaByHour(hour) {
   return GUAS[HOUR_GUA_INDEX[getHourIndex(hour)]];
 }
 
+function getZodiac(year) {
+  return ZODIAC_LIST[(((Number(year) - 4) % 12) + 12) % 12];
+}
+
+function getDayPillarIndex(year, month, day) {
+  const days = Math.floor(
+    (Date.UTC(Number(year), Number(month) - 1, Number(day)) - Date.UTC(2024, 0, 1)) / 86400000
+  );
+  return ((days % 60) + 60) % 60;
+}
+
+function getFourPillars(config) {
+  const year = Number(config.birthYear);
+  const month = Number(config.birthMonth);
+  const day = Number(config.birthDay);
+  const hour = Number(config.birthHour);
+  const yearIdx = (((year - 4) % 60) + 60) % 60;
+  const dayIdx = getDayPillarIndex(year, month, day);
+  const yearStem = STEMS[yearIdx % 10];
+  const yearBranch = BRANCHES[yearIdx % 12];
+  const monthBranchIdx = ((month - 2 + 12) % 12);
+  const monthStem = STEMS[(((yearIdx % 10) % 5) * 2 + monthBranchIdx + 2) % 10];
+  const monthBranch = BRANCHES[(monthBranchIdx + 2) % 12];
+  const dayStem = STEMS[dayIdx % 10];
+  const dayBranch = BRANCHES[dayIdx % 12];
+  const hourBranchIdx = getHourIndex(hour);
+  const hourStem = STEMS[(((dayIdx % 10) % 5) * 2 + hourBranchIdx) % 10];
+  const hourBranch = BRANCHES[hourBranchIdx];
+  const pillars = [
+    yearStem + yearBranch,
+    monthStem + monthBranch,
+    dayStem + dayBranch,
+    hourStem + hourBranch
+  ];
+  const counts = { 木: 0, 火: 0, 土: 0, 金: 0, 水: 0 };
+  pillars.join("").split("").forEach((char) => {
+    const element = STEM_ELEMENTS[char] || BRANCH_ELEMENTS[char];
+    if (element) counts[element]++;
+  });
+  const values = Object.keys(counts).map((key) => [key, counts[key]]);
+  const min = Math.min(...values.map((entry) => entry[1]));
+  const missing = values.filter((entry) => entry[1] === 0).map((entry) => entry[0]);
+  const weak = values.filter((entry) => entry[1] === min && entry[1] > 0).map((entry) => entry[0]);
+  return {
+    pillars,
+    counts,
+    missing,
+    weak,
+    boost: missing.length ? missing : weak
+  };
+}
+
+function getElementOfChar(char) {
+  return CHAR_ELEMENTS[char] || "·";
+}
+
 function getSeason(month) {
   const value = Number(month);
   if (value >= 3 && value <= 5) return "spring";
@@ -1426,17 +1510,32 @@ function makeName(rng, usedChars, config) {
     refLine,
     insight:
       `用字意象 ${given.map((char) => char.meaning.split("，")[0]).join(" · ")}` +
+      (config.guaEnabled !== false
+        ? `｜五行 ${given.map((char) => getElementOfChar(char.c)).join("·")}`
+        : "") +
       (gua ? `｜${gua.name}卦·${gua.symbol}` : ""),
     classic: `用典 ${classic.source}「${classic.line}」`
   };
 }
 
 function getReferencePrompt(config) {
-  const gua = config.guaEnabled !== false ? getGuaByHour(config.birthHour) : null;
+  const enabled = config.guaEnabled !== false;
+  const gua = enabled ? getGuaByHour(config.birthHour) : null;
+  const zodiac = enabled ? getZodiac(config.birthYear) : "";
+  const profile = enabled ? getFourPillars(config) : null;
+  const counts = profile ? profile.counts : null;
+  const boostText = profile && profile.boost.length
+    ? `宜补 ${profile.boost.join("、")}`
+    : "五行均衡";
   const lines = [
     `${config.birthDate} ${config.birthTime} · 出生纪念`,
-    ...(gua
-      ? [`${getHourLabel(config.birthHour)}卦象 ${gua.name}卦·${gua.symbol}（${gua.line}）`]
+    ...(enabled
+      ? [
+          `八字参考 ${profile.pillars.join(" ")}`,
+          `五行 木${counts["木"]} 火${counts["火"]} 土${counts["土"]} 金${counts["金"]} 水${counts["水"]} · ${boostText}`,
+          `${zodiac}年宜用 ${ZODIAC_NOTES[zodiac] || ""}`,
+          `${getHourLabel(config.birthHour)}卦象 ${gua.name}卦·${gua.symbol}（${gua.line}）`
+        ]
       : []),
     getGroupedReferencePrompt(config)
   ].filter(Boolean);
