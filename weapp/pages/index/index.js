@@ -122,7 +122,8 @@ Page({
   },
 
   onCountChange(event) {
-    this.setData({ count: Number(event.detail.value) });
+    const count = Math.min(30, Math.max(5, Number(event.detail.value)));
+    this.setData({ count });
     this.generate();
   },
 
