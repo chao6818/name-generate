@@ -35,7 +35,7 @@ Page({
       { label: "两字", value: "short" },
       { label: "三字", value: "long" }
     ],
-    count: 12,
+    count: 5,
     names: [],
     referencePrompt: "",
     subtitle: ""
@@ -122,7 +122,7 @@ Page({
   },
 
   onCountChange(event) {
-    const count = Math.min(30, Math.max(5, Number(event.detail.value)));
+    const count = Math.min(20, Math.max(5, Number(event.detail.value)));
     this.setData({ count });
     this.generate();
   },
