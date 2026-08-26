@@ -1,5 +1,13 @@
 const { generateNames, getReferencePrompt, STYLE_OPTIONS } = require("../../utils/generator");
 
+function getToday() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
 Page({
   data: {
     father: "",
@@ -11,8 +19,8 @@ Page({
       { label: "父姓", value: "father" },
       { label: "母姓", value: "mother" }
     ],
-    birthDate: "2026-08-24",
-    birthTime: "08:00",
+    birthDate: getToday(),
+    birthTime: "00:00",
     gender: "neutral",
     genderOptions: [
       { label: "不限", value: "neutral" },
