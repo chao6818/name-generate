@@ -7,9 +7,9 @@ Page({
     generationChar: "",
     surnameSource: "none",
     surnameOptions: [
+      { label: "不显示", value: "none" },
       { label: "父姓", value: "father" },
-      { label: "母姓", value: "mother" },
-      { label: "不显示", value: "none" }
+      { label: "母姓", value: "mother" }
     ],
     birthDate: "2026-08-24",
     birthTime: "08:00",
