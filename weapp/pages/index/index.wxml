@@ -85,6 +85,22 @@
     </view>
 
     <view class="field">
+      <text class="label">八卦易经参考</text>
+      <view class="segmented">
+        <view
+          class="segment {{guaEnabled ? 'active' : ''}}"
+          data-value="true"
+          bindtap="onGuaTap"
+        >开启</view>
+        <view
+          class="segment {{!guaEnabled ? 'active' : ''}}"
+          data-value="false"
+          bindtap="onGuaTap"
+        >关闭</view>
+      </view>
+    </view>
+
+    <view class="field">
       <text class="label">名字长度</text>
       <view class="segmented">
         <view

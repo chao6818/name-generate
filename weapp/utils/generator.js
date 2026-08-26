@@ -9,6 +9,24 @@ const STYLE_OPTIONS = [
   { id: "warm", label: "温暖" }
 ];
 
+const HOUR_LABELS = [
+  "子时", "丑时", "寅时", "卯时", "辰时", "巳时",
+  "午时", "未时", "申时", "酉时", "戌时", "亥时"
+];
+
+const GUAS = [
+  { name: "乾", symbol: "天", line: "天行健，君子以自强不息", element: "金" },
+  { name: "兑", symbol: "泽", line: "丽泽兑，君子以朋友讲习", element: "金" },
+  { name: "离", symbol: "火", line: "明两作离，大人以继明照于四方", element: "火" },
+  { name: "震", symbol: "雷", line: "洊雷震，君子以恐惧修省", element: "木" },
+  { name: "巽", symbol: "风", line: "随风巽，君子以申命行事", element: "木" },
+  { name: "坎", symbol: "水", line: "水洊至，习坎，君子以常德行", element: "水" },
+  { name: "艮", symbol: "山", line: "兼山艮，君子以思不出其位", element: "土" },
+  { name: "坤", symbol: "地", line: "地势坤，君子以厚德载物", element: "土" }
+];
+
+const HOUR_GUA_INDEX = [5, 6, 6, 3, 4, 4, 2, 7, 7, 1, 0, 0];
+
 const CLASSIC_LINES = [
   { source: "《诗经》", line: "如月之恒，如日之升" },
   { source: "《诗经》", line: "有匪君子，如切如磋" },
@@ -19,6 +37,8 @@ const CLASSIC_LINES = [
   { source: "《楚辞》", line: "纷吾既有此内美兮，又重之以修能" },
   { source: "《楚辞》", line: "吉日兮辰良，穆将愉兮上皇" },
   { source: "《楚辞》", line: "乐莫乐兮新相知" },
+  { source: "《周易》", line: "君子藏器于身，待时而动" },
+  { source: "《周易》", line: "厚德载物，自强不息" },
   { source: "《荀子》", line: "不积跬步，无以至千里" },
   { source: "《尚书》", line: "功崇惟志，业广惟勤" },
   { source: "《论语》", line: "志于道，据于德，依于仁，游于艺" },
@@ -1176,6 +1196,18 @@ function getGroupedReferencePrompt(config) {
     .join("；");
 }
 
+function getHourIndex(hour) {
+  return Math.floor((((Number(hour) || 0) + 1) % 24) / 2);
+}
+
+function getHourLabel(hour) {
+  return HOUR_LABELS[getHourIndex(hour)];
+}
+
+function getGuaByHour(hour) {
+  return GUAS[HOUR_GUA_INDEX[getHourIndex(hour)]];
+}
+
 function getSeason(month) {
   const value = Number(month);
   if (value >= 3 && value <= 5) return "spring";
@@ -1383,6 +1415,7 @@ function makeName(rng, usedChars, config) {
   const surname = getSurname(config);
   const given = pickGivenChars(rng, usedChars, config);
   const refLine = getGroupedReferencePrompt(config);
+  const gua = config.guaEnabled !== false ? getGuaByHour(config.birthHour) : null;
   const classic = pick(CLASSIC_LINES, rng);
   return {
     text: (surname ? surname.s : "") + given.map((char) => char.c).join(""),
@@ -1391,14 +1424,20 @@ function makeName(rng, usedChars, config) {
     meaning: given.map((char) => char.meaning).join(" · "),
     tags: [...new Set(given.map((char) => char.tags).reduce((all, tags) => all.concat(tags), []))].slice(0, 2),
     refLine,
-    insight: `用字意象 ${given.map((char) => char.meaning.split("，")[0]).join(" · ")}`,
+    insight:
+      `用字意象 ${given.map((char) => char.meaning.split("，")[0]).join(" · ")}` +
+      (gua ? `｜${gua.name}卦·${gua.symbol}` : ""),
     classic: `用典 ${classic.source}「${classic.line}」`
   };
 }
 
 function getReferencePrompt(config) {
+  const gua = config.guaEnabled !== false ? getGuaByHour(config.birthHour) : null;
   const lines = [
     `${config.birthDate} ${config.birthTime} · 出生纪念`,
+    ...(gua
+      ? [`${getHourLabel(config.birthHour)}卦象 ${gua.name}卦·${gua.symbol}（${gua.line}）`]
+      : []),
     getGroupedReferencePrompt(config)
   ].filter(Boolean);
   return lines.join("\n");

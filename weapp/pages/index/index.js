@@ -19,6 +19,7 @@ Page({
       { label: "男孩", value: "male" },
       { label: "女孩", value: "female" }
     ],
+    guaEnabled: true,
     styleOptions: [],
     length: "any",
     lengthOptions: [
@@ -100,6 +101,12 @@ Page({
     this.generate();
   },
 
+  onGuaTap(event) {
+    const value = event.currentTarget.dataset.value === "true";
+    this.setData({ guaEnabled: value });
+    this.generate();
+  },
+
   onLengthTap(event) {
     const value = event.currentTarget.dataset.value;
     this.setData({ length: value });
@@ -147,6 +154,7 @@ Page({
       birthHour: Number(timeParts[0]),
       birthMinute: Number(timeParts[1]),
       gender: data.gender,
+      guaEnabled: data.guaEnabled,
       styles: data.styleOptions.filter((style) => style.active).map((style) => style.id),
       length: data.length,
       count: data.count
@@ -193,6 +201,7 @@ Page({
       birthHour: Number(timeParts[0]),
       birthMinute: Number(timeParts[1]),
       gender: data.gender,
+      guaEnabled: data.guaEnabled,
       styles: data.styleOptions.filter((style) => style.active).map((style) => style.id),
       length: data.length,
       count: data.count
